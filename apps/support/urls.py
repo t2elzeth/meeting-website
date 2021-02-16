@@ -4,9 +4,8 @@ from rest_framework import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register("", views.QuestionnaireViewSet)
+router.register("tickets/", views.TicketViewSet)
 
 urlpatterns = [
-    path("create/", views.CreateQuestionnaireView.as_view()),
-    path("", include(router.urls)),
+    path("support/", include(router.urls))
 ]

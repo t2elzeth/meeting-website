@@ -8,16 +8,16 @@ from . import models
 class UserAdmin(BaseUserAdmin):
     ordering = ('is_staff',)
 
-    list_display = (
-        'email',
-    )
+    list_display = ('email',)
 
-    list_filter = (
-        'is_staff',
-    )
+    list_filter = ('is_staff',)
 
-    readonly_fields = (
-        'id', 'is_superuser', 'is_staff'
+    readonly_fields = ('id', 'is_superuser', 'is_staff')
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'password1', 'password2'),
+        }),
     )
 
     fieldsets = (

@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -13,6 +12,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=255, verbose_name='Ф.И.О.')
     email = models.EmailField(max_length=255, unique=True, verbose_name='Почта')
     age = models.IntegerField()
+    city = models.CharField(max_length=255, default="")
+    marrital_status = models.CharField(max_length=255, default="")
+    about = models.CharField(max_length=500, default="")
 
     MAN = 'man'
     WOMAN = 'woman'
@@ -34,10 +36,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_full_name(self):
         """Returns full name of user"""
         return self.full_name
-
-    @property
-    def referral_link(self):
-        return f"/api/v1/auth/users/?{settings.REFERRAL_QUERY_PARAM}={self.id}"
 
     def __str__(self):
         return f"Account of {self.get_username()}"
