@@ -29,7 +29,8 @@ INSTALLED_APPS = [
 
     # own
     'accounts',
-    'forms'
+    'forms',
+    'support'
 ]
 
 MIDDLEWARE = [

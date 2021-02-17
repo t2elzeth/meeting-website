@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
 from .models import Questionnaire, Question, AnswerSheet, Answer
 
@@ -19,10 +20,7 @@ class CreateQuestionnaireSerializer(serializers.ModelSerializer):
 
 
 class QuestionSerializer(serializers.ModelSerializer):
-    question = serializers.SerializerMethodField("_question")
-
-    def _question(self, question_instance):
-        return question_instance.question
+    question = serializers.CharField(source="question")
 
     class Meta:
         model = Question
@@ -30,27 +28,12 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 
 class QuestionnaireSerializer(serializers.ModelSerializer):
-    questions = serializers.SerializerMethodField('_questions')
-
-    def _questions(self, questionnaire_instance):
-        return QuestionSerializer(questionnaire_instance.questions.all(), many=True).data
+    questions = QuestionSerializer(source="questions.all", many=True)
 
     class Meta:
         model = Questionnaire
         fields = ['id', 'title', 'questions']
         read_only_fields = ['id', 'questions']
-
-
-class CreateAnswerSheetSerializer(serializers.ModelSerializer):
-    answers = serializers.ListField(child=serializers.CharField(), write_only=True)
-
-    class Meta:
-        model = AnswerSheet
-        fields = ['answers']
-
-    def create(self, validated_data):
-        validated_data.pop("answers", None)
-        return super().create(validated_data)
 
 
 class FromUserSerializer(serializers.ModelSerializer):
@@ -59,31 +42,47 @@ class FromUserSerializer(serializers.ModelSerializer):
         fields = ["email", "full_name"]
 
 
-class AnswerSerializer(serializers.ModelSerializer):
-    question = serializers.SerializerMethodField("_question")
-
-    def _question(self, answer_instance):
-        return answer_instance.question.question
-
-    class Meta:
-        model = Answer
-        fields = ["question", "answer"]
-
-
 class ToQuestionnaireSerializer(serializers.ModelSerializer):
     class Meta:
         model = Questionnaire
         fields = ["title"]
 
 
+class CreateAnswerSheetSerializer(serializers.ModelSerializer):
+    answers = serializers.ListField(child=serializers.CharField(), write_only=True)
+    from_user = FromUserSerializer(read_only=True)
+    to_questionnaire = ToQuestionnaireSerializer(read_only=True)
+
+    class Meta:
+        model = AnswerSheet
+        fields = ['id', 'from_user', 'to_questionnaire', 'answers']
+        read_only_fields = ['id']
+
+    def validate_answers(self, value):
+        questions = self.context["view"].get_object().questions.all()
+        if len(value) != len(questions):
+            raise ValidationError({"Not enough answers": f"Questionnaire has {len(questions)} questions. "
+                                                         f"Only {len(value)} answers provided"})
+        return value
+
+    def create(self, validated_data):
+        validated_data.pop("answers", None)
+        return super().create(validated_data)
+
+
+class AnswerSerializer(serializers.ModelSerializer):
+    question = serializers.CharField(source="question.question")
+
+    class Meta:
+        model = Answer
+        fields = ["question", "answer"]
+
+
 class AnswerSheetSerializer(serializers.ModelSerializer):
     from_user = FromUserSerializer()
 
-    answers = serializers.SerializerMethodField('_answers')
+    answers = AnswerSerializer(source="answers.all", many=True)
     to_questionnaire = ToQuestionnaireSerializer()
-
-    def _answers(self, answer_sheet_instance):
-        return AnswerSerializer(answer_sheet_instance.answers.all(), many=True).data
 
     class Meta:
         model = AnswerSheet
