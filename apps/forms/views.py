@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 
 from .models import Questionnaire, AnswerSheet
-from .serializers import (CreateQuestionnaireSerializer, QuestionnaireSerializer,
+from .serializers import (CreateQuestionnaireSerializer, QuestionnaireSerializer, QuestionnaireDetailSerializer,
                           CreateAnswerSheetSerializer, AnswerSheetSerializer)
 from .mixins import SerializerClassByAction
 
@@ -20,7 +20,8 @@ class QuestionnaireViewSet(viewsets.ModelViewSet, SerializerClassByAction):
     serializer_class_by_action = {
         "answer": CreateAnswerSheetSerializer,
         "answers": AnswerSheetSerializer,
-        "create": CreateQuestionnaireSerializer
+        "create": CreateQuestionnaireSerializer,
+        "retrieve": QuestionnaireDetailSerializer
     }
 
     def filter_queryset(self, queryset):

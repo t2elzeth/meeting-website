@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .serializers import UserSerializer
+from forms.serializers import QuestionnaireSerializer
 
 User = get_user_model()
 
@@ -14,4 +15,4 @@ class UserViewSet(viewsets.GenericViewSet):
 
     @action(methods=["get"], detail=True)
     def questionnaires(self, request, pk=None):
-        return Response({"error": "Use questionnaires endpoint"})
+        return Response(QuestionnaireSerializer(self.get_object().questionnaires.all(), many=True).data)

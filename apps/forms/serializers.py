@@ -20,14 +20,19 @@ class CreateQuestionnaireSerializer(serializers.ModelSerializer):
 
 
 class QuestionSerializer(serializers.ModelSerializer):
-    question = serializers.CharField(source="question")
-
     class Meta:
         model = Question
         fields = ["question"]
 
 
 class QuestionnaireSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Questionnaire
+        fields = ['id', 'title']
+        read_only_fields = ['id']
+
+
+class QuestionnaireDetailSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(source="questions.all", many=True)
 
     class Meta:
