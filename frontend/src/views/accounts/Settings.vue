@@ -9,7 +9,6 @@
       <form action="" class="form" @submit.prevent="submitForm">
         <input class="form-input"
                placeholder="Ваше новое Имя Фамилия"
-               maxlength="25"
                v-model="formData.full_name">
         <input type="text" class="form-input" placeholder="Возвраст" v-model="formData.age">
         <SelectField placeholder="Город" field-key="city" v-model="formData.city"></SelectField>
