@@ -100,9 +100,9 @@ const routes = [
   {
     path: '/settings', //Настройки
     name: 'settings',
-    meta: {
-      requiresAuth: true
-    },
+    // meta: {
+    //   requiresAuth: true
+    // },
     component: () => import("@/views/accounts/Settings")
   },
   {

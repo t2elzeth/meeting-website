@@ -1,5 +1,5 @@
 <template>
-  <select v-model="vModel[fieldKey]">
+  <select v-bind:value="modelValue" v-on:input="$emit('update:modelValue', $event.target.value)">
     <option value="" disabled selected hidden>{{ placeholder }}</option>
     <option v-for="(field, index) in selectFields[fieldKey]" :key="index" :value="field">{{ field }}</option>
   </select>
@@ -9,15 +9,10 @@
 import selectFields from "@/utils/fields/selectFields";
 
 export default {
-  props: {
-    placeholder: String,
-    fieldKey: String,
-    formData: Object
-  },
+  props: ["placeholder", "fieldKey", "modelValue"],
   data() {
     return {
       selectFields,
-      vModel: this.$props.formData
     }
   },
 }

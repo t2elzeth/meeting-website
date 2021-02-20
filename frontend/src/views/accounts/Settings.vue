@@ -12,9 +12,9 @@
                maxlength="25"
                v-model="formData.full_name">
         <input type="text" class="form-input" placeholder="Возвраст" v-model="formData.age">
-        <SelectField placeholder="Город" field-key="city" :form-data="formData"></SelectField>
+        <SelectField placeholder="Город" field-key="city" v-model="formData.city"></SelectField>
         <SelectField placeholder="Семейное положение" field-key="marrital_status"
-                     :form-data="formData"></SelectField>
+                     v-model="formData.marrital_status"></SelectField>
         <textarea class="form-mess"
                   maxlength="500"
                   cols="30"
@@ -47,15 +47,16 @@ export default {
         marrital_status: "",
         full_name: "",
         about: "",
-        age: ""
+        age: "",
       },
     }
   },
   methods: {
     submitForm() {
-      axios.patch(urls.whoAmI, this.getFormData(), auth.getCredentials())
-           .then(res => console.log(res.data))
-           .catch(err => console.log(err))
+      // axios.patch(urls.whoAmI, this.getFormData(), auth.getCredentials())
+      //      .then(res => console.log(res.data))
+      //      .catch(err => console.log(err))
+      console.log(this.formData)
     },
     getFormData() {
       let data = {}
@@ -74,7 +75,7 @@ export default {
              this.$router.push({name: "login"})
            })
            .catch(console.log)
-    }
+    },
   }
 }
 </script>
