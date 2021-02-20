@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer" v-if="dataFetched">
+  <footer class="footer">
     <div class="wrapper" v-if="auth.isAuthenticated()">
 
       <div class="footer-content">
@@ -39,7 +39,6 @@
     </div>
     <AuthorizationError v-else></AuthorizationError>
   </footer>
-  <div v-else>Content is loading</div>
 </template>
 
 <script>
@@ -53,7 +52,6 @@ export default {
   data() {
     return {
       serverData: this.$store.getters.getMe,
-      dataFetched: true,
       auth
     }
   },
