@@ -8,11 +8,14 @@ const urls = {
   logout: urljoin(apiServer, "api/v1/auth/token/logout/"),
   whoAmI: urljoin(apiServer, "api/v1/auth/users/me/"),
   userDetail: userId => urljoin(apiServer, "api/v1/auth/users/", userId.toString()),
-  myQuestionnaires: userId => urljoin(apiServer, "api/v1/auth/users/", userId.toString(), "questionnaires/"),
-  sendQuestionnaire: userId => urljoin(apiServer, "api/v1/auth/users/", userId.toString(), "send_questionnaire/"),
-  receivedQuestionnaires: userId => urljoin(apiServer, "api/v1/auth/users/", userId.toString(), "received_questionnaires/"),
   allQues: urljoin(apiServer, "api/v1/forms/questionnaires/"),
-  quesDetail: questionnaireId => urljoin(apiServer, "api/v1/forms/questionnaires/", questionnaireId.toString()),
+  sendQuestionnaire: questionnaireId => urljoin(apiServer, "api/v1/forms/questionnaires/", questionnaireId.toString(), "send/"),
+  receivedQuestionnaires: urljoin(apiServer, "api/v1/forms/questionnaires/received/"),
+  myAnswers: urljoin(apiServer, "api/v1/forms/answers/my/"),
+  myQuestionnaires: urljoin(apiServer, "api/v1/forms/questionnaires/my/"),
+  answersToMyQuestionnaires: urljoin(apiServer, "api/v1/forms/answers/to_my_questionnaires/"),
+  quesionnairyDetail: questionnaireId => urljoin(apiServer, "api/v1/forms/questionnaires/", questionnaireId.toString()),
+  answerDetail: answerId => urljoin(apiServer, "api/v1/forms/answers/", answerId.toString()),
   ansQues: questionnaireId => urljoin(apiServer, "api/v1/forms/questionnaires/", questionnaireId.toString(), "answer/"),
   addQues: urljoin(apiServer, "api/v1/forms/questionnaires/")
 };

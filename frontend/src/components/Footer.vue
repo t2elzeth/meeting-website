@@ -7,7 +7,6 @@
         <div class="footer-account">
 
           <button @click="$router.push({ name: 'regis' })" class="footer-btn">Зарегестрироваться</button>
-
           <button @click="$router.push({ name: 'autorize' })" class="footer-btn">Войти</button>
 
         </div>
@@ -38,15 +37,13 @@
       </div>
 
     </div>
-      <Error v-else error-message="Ошибка! Пожалуйста войдите в свой аккаунт или зарегестрируйтесь."></Error>
+    <Error v-else error-message="Ошибка! Пожалуйста войдите в свой аккаунт или зарегестрируйтесь."></Error>
   </footer>
   <div v-else>Content is loading</div>
 </template>
 
 <script>
 import auth from "@/utils/auth";
-import axios from "axios";
-import urls from "@/utils/api";
 import Error from "@/components/Error";
 
 export default {
@@ -55,22 +52,11 @@ export default {
   },
   data() {
     return {
-      serverData: [],
+      serverData: this.$store.getters.getMe,
       dataFetched: true,
       auth
     }
   },
-  methods: {
-    setServerData(data) {
-      this.serverData = data
-      this.dataFetched = true
-    }
-  },
-  beforeRouteEnter(to, from, next) {
-    axios.get(urls.whoAmI, auth.getCredentials())
-         .then(res => next(vm => vm.setServerData(res.data)))
-         .catch(err => console.log(err))
-  }
 }
 </script>
 

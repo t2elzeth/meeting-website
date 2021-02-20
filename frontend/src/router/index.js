@@ -1,125 +1,85 @@
-import {createRouter, createWebHashHistory} from 'vue-router'
-
-import MainPage from '../pages/MainPage' //Главная
-import Myques from '../pages/Myques' //Мои вопросы
-import Allques from '../pages/Allques' //Все вопросы
-import Myanswer from '../pages/Myanswer' //Мои ответы
-import AskedYou from '../pages/AskedYou' //Вам ответили
-import AnswerYou from '../pages/AnswerYou' //Вам задали
-import Support from '../pages/Support' //Тех. поддержка
-import Addques from '../pages/Addques' //Создать вопрос
-import LookAns from '../pages/LookAns' //Посмотреть на вопрос (то на что ты уже ответил)
-import LookAnsList from '../pages/LookAnsList' //Посмотреть на список людей которые ответили на этот тест
-import LookAnsHum from '../pages/LookAnsHum' //Посмотреть на ответы человека который ответил на этот тест
-import LookYouQuestion from '../pages/LookYouQuestion' //Посмотреть на вопросы которые ты составил
-import SignUp from '../pages/SignUp' //Регистрация
-import Authorize from '../pages/Authorize' //Авторизация
-import Settings from '../pages/Settings' //Настройки
-import AnsQues from '../pages/AnsQues' //Ответить на тест
-import Search from '../pages/Search' //Страница поиска
-import LookaccList from '../pages/LookaccList' //Страница с результатами поиска людей
-import Lookacc from '../pages/AccountDetail' //Страница с информацией аккаунта (другого человека)
+import {createRouter, createWebHistory} from 'vue-router'
 
 const routes = [
   {
-    path: '/', //Главная
+    path: '/',
     name: 'main',
-    component: MainPage
+    component: () => import("@/views/Home")
   },
   {
-    path: '/my-questions', //Мои вопросы
-    name: 'myques',
-    component: Myques
+    path: '/users/:id', //Страница для просмотра информаций аккаунта
+    name: 'account-detail',
+    component: () => import("@/pages/AccountDetail")
   },
   {
-    path: '/all-questions', //Все вопросы
+    path: '/questionnaires', //Все вопросы
     name: 'allques',
-    component: Allques
+    component: () => import("@/pages/AllQuestionnaires")
   },
   {
-    path: '/my-answers', // Мои ответы
-    name: 'myanswer',
-    component: Myanswer
+    path: '/questionnaires/:id/questions', //Посмотреть на свои вопросы (какого либо теста)
+    name: 'questionnaire-questions',
+    component: () => import("@/pages/QuestionsOfQuestionnaire")
   },
   {
-    path: '/you-asked', //Вам ответили
-    name: 'askyou',
-    component: AskedYou
+    path: '/questionnaires/my', //Мои вопросы
+    name: 'myques',
+    component: () => import("@/pages/MyQuestionnaires")
   },
   {
-    path: '/you-answer', //Вам задали
+    path: '/questionnaires/tome', //Вам задали
     name: 'ansyou',
-    component: AnswerYou
+    component: () => import("@/pages/AnswerYou")
+  },
+  {
+    path: '/questionnaires/new', //Создать вопрос
+    name: 'addques',
+    component: () => import("@/pages/CreateNewQuestionnaire")
+  },
+  {
+    path: '/answers/:id', //Посмотреть на ответы человека который ответил на твой тест
+    name: 'look-answer-human',
+    component: () => import("@/pages/LookAnsHum")
+  },
+  {
+    path: '/answers/my', // Мои ответы
+    name: 'myanswer',
+    component: () => import("@/pages/MyAnswers")
+  },
+  {
+    path: '/answers/tome', //Вам ответили
+    name: 'askyou',
+    component: () => import("@/pages/AskedYou")
   },
   {
     path: '/support', // Тех. Поддержка
     name: 'support',
-    component: Support
-  },
-  {
-    path: '/add-question', //Создать вопрос
-    name: 'addques',
-    component: Addques
-  },
-  {
-    path: '/look-answer', //Посмотреть на ответы (то на что ты уже ответил)
-    name: 'look-answer',
-    component: LookAns
-  },
-  {
-    path: '/look-list-answers', //Посмотреть на список людей которые ответили на твой вопрос
-    name: 'look-list-ans',
-    component: LookAnsList
-  },
-  {
-    path: '/look-answer-human', //Посмотреть на ответы человека который ответил на твой тест
-    name: 'look-answer-human',
-    component: LookAnsHum
-  },
-  {
-    path: '/look-your-question', //Посмотреть на свои вопросы (какого либо теста)
-    name: 'look-you-question',
-    component: LookYouQuestion
+    component: () => import("@/pages/Support")
   },
   {
     path: '/login', //Авторизоваться (войти)
     name: 'autorize',
-    component: Authorize
+    component: () => import("@/pages/Login")
   },
   {
     path: '/signup', //Зарегестрироваться
     name: 'regis',
-    component: SignUp
+    component: () => import("@/pages/SignUp")
   },
   {
     path: '/settings', //Настройки
     name: 'settings',
-    component: Settings
-  },
-  {
-    path: '/answered-on-question', //Ответить на вопрос
-    name: 'ansques',
-    component: AnsQues
+    component: () => import("@/pages/Settings")
   },
   {
     path: '/search', //Страница поиска
     name: 'search',
-    component: Search
+    component: () => import("@/pages/SearchAccounts")
   },
-  {
-    path: '/look-acc-list', //Страница со списком людей от поиска
-    name: 'lookacc-list',
-    component: LookaccList
-  },
-  {
-    path: '/look-account', //Страница для просмотра информаций аккаунта
-    name: 'lookacc',
-    component: Lookacc
-  }
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 })
 

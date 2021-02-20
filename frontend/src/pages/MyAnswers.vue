@@ -1,17 +1,13 @@
 <template>
   <section class="answers">
     <div class="wrapper">
-
       <p class="title">Ваши ответы</p>
-
-            <div v-for="item in serverData" :key="item.id" class="quest">
-              <p class="quest-title"><strong>{{ item.title }}</strong> от <strong>{{item.owner.full_name}}</strong></p>
-              <button @click="$router.push({name: 'questionnaire-questions', params: {id: item.id}})" class="quest-btn">
-                Перейти
-              </button>
-            </div>
-      {{ serverData }}
-
+      <div v-for="item in serverData" :key="item.id" class="quest">
+        <p class="quest-title"><strong>{{ item.to_questionnaire.title }}</strong></p>
+        <button @click="$router.push({name: 'look-answer-human', params: {id: item.id}})" class="quest-btn">
+          Перейти
+        </button>
+      </div>
     </div>
   </section>
 </template>
@@ -37,7 +33,7 @@ export default {
       this.dataFetched = true
     },
     searchQuestionnaires() {
-      axios.get(urls.myQuestionnaires(this.$store.getters.getMe.id), {
+      axios.get(urls.myAnswers, {
         ...auth.getCredentials(),
         params: {...this.searchFormData}
       })
@@ -47,7 +43,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      axios.get(urls.myQuestionnaires(vm.$store.getters.getMe.id), auth.getCredentials())
+      axios.get(urls.myAnswers, auth.getCredentials())
            .then(res => vm.setServerData(res.data))
            .catch(err => console.log(err))
     })

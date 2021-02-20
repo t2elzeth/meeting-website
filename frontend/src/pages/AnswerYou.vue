@@ -1,32 +1,32 @@
 <template>
   <div class="you" v-if="dataFetched">
     <div class="wrapper" v-if="auth.isAuthenticated()">
-
       <p class="title">Вам задали {{ serverData.length }} вопросов</p>
-
-
-      <div class="quest" v-for="questionnaire in serverData" :key="questionnaire.id">
-        <p class="quest-title">{{ questionnaire.title }}</p>
-        <button @click="$router.push({ name: 'ansques', params: {id: questionnaire.id} })" class="quest-btn">
-          Перейти
-        </button>
-      </div>
-
+      <SingleQuestionnaire class="quest"
+                           v-for="received in serverData"
+                           :key="received.id"
+                           :questionnaire="received"
+                           user-key="from_user"
+                           questionnaire-key="questionnaire">
+      </SingleQuestionnaire>
     </div>
-    <Error v-else error-message="Ошибка! Пожалуйста войдите в свой аккаунт или зарегестрируйтесь."></Error>
+    <AuthorizationError v-else></AuthorizationError>
   </div>
-  <div v-else>Content is loading</div>
+  <LoadingContent v-else></LoadingContent>
 </template>
 
 <script>
-import Error from '../components/Error'
+import LoadingContent from "@/components/LoadingContent";
+import AuthorizationError from "@/components/AuthorizationError";
+import SingleQuestionnaire from "@/components/SingleQuestionnaire";
+
 import axios from "axios";
 import urls from "@/utils/api";
 import auth from "@/utils/auth";
 
 export default {
   components: {
-    Error
+    AuthorizationError, LoadingContent, SingleQuestionnaire
   },
   data() {
     return {
@@ -42,13 +42,11 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    axios.get(urls.whoAmI, auth.getCredentials())
-         .then(res => {
-           axios.get(urls.receivedQuestionnaires(res.data.id), auth.getCredentials())
-                .then(res => next(vm => vm.setServerData(res.data)))
-                .catch(err => console.log(err))
-         })
-
+    next(vm => {
+      axios.get(urls.receivedQuestionnaires, auth.getCredentials())
+           .then(res => vm.setServerData(res.data))
+           .catch(err => console.log(err))
+    })
   }
 }
 </script>

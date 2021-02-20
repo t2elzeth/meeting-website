@@ -36,7 +36,7 @@ export default {
       this.dataFetched = true
     },
     searchQuestionnaires() {
-      axios.get(urls.myQuestionnaires(this.$store.getters.getMe.id), {
+      axios.get(urls.myQuestionnaires, {
         ...auth.getCredentials(),
         params: {...this.searchFormData}
       })
@@ -46,7 +46,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      axios.get(urls.myQuestionnaires(vm.$store.getters.getMe.id), auth.getCredentials())
+      axios.get(urls.myQuestionnaires, auth.getCredentials())
            .then(res => vm.setServerData(res.data))
            .catch(err => console.log(err))
     })

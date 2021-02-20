@@ -32,16 +32,21 @@
         <button>Отправить анкету</button>
       </form>
     </div>
-    <div v-else>Content is loading</div>
+    <LoadingContent v-else></LoadingContent>
   </div>
 </template>
 
 <script>
+import LoadingContent from "@/components/LoadingContent";
+
 import auth from "@/utils/auth";
 import urls from "@/utils/api";
 import axios from "axios";
 
 export default {
+  components: {
+    LoadingContent
+  },
   data() {
     return {
       userData: {},
@@ -59,26 +64,21 @@ export default {
       this.setQuestionnaires()
     },
     setQuestionnaires() {
-      axios.get(urls.whoAmI, auth.getCredentials())
-           .then(res => {
-             axios.get(urls.myQuestionnaires(res.data.id), auth.getCredentials())
-                  .then(res => this.questionnaires = res.data)
-                  .catch(err => console.log(err))
-           })
+      axios.get(urls.myQuestionnaires, auth.getCredentials())
+           .then(res => this.questionnaires = res.data)
+           .catch(err => console.log(err))
     },
     sendQuestionnaire() {
-      axios.post(urls.sendQuestionnaire(this.userData.id), {questionnaire: this.questionnaireIdToSend}, auth.getCredentials())
+      axios.post(urls.sendQuestionnaire(this.questionnaireIdToSend), {to_user: this.userData.id}, auth.getCredentials())
            .then(res => console.log(res.data))
            .catch(err => console.log(err))
     }
   },
   beforeRouteEnter(to, from, next) {
-    if (!to.params.id) return next({name: "allques"})
-
     axios.get(urls.userDetail(to.params.id), auth.getCredentials())
          .then(res => next(vm => vm.setUserData(res.data)))
          .catch(err => console.log(err))
-  }
+  },
 }
 </script>
 

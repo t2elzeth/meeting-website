@@ -12,7 +12,6 @@
 
         <button class="form-btn" type="submit">Авторизоваться</button>
       </form>
-
     </div>
   </div>
 </template>
