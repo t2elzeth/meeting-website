@@ -110,11 +110,6 @@ const routes = [
     name: 'search',
     component: () => import("@/views/accounts/SearchAccounts")
   },
-  {
-    path: "/",
-    name: "404",
-    component: () => import("@/views/404")
-  }
 ]
 
 const router = createRouter({
