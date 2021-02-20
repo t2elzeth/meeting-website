@@ -7,6 +7,7 @@
 
 <script>
 export default {
+  name: "Select",
   props: ["fieldKey", "modelValue"],
   data() {
     return {

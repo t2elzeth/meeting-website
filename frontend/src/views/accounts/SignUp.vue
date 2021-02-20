@@ -13,29 +13,28 @@
           <option value="woman">Женский</option>
           <option value="hidden">Не указано</option>
         </select>
-        <SelectField field-key="religion" v-model="formData.religion"></SelectField>
+        <Select field-key="religion" v-model="formData.religion"></Select>
         <input type="number" v-model="formData.age" placeholder="Возраст">
-        <SelectField field-key="city" v-model="formData.city"></SelectField>
-        <SelectField field-key="marrital_status" v-model="formData.marrital_status"></SelectField>
+        <Select field-key="city" v-model="formData.city"></Select>
+        <Select field-key="marrital_status" v-model="formData.marrital_status"></Select>
         <textarea v-model="formData.about" cols="30" rows="10" placeholder="О себе"></textarea>
         <input type="password" v-model="formData.password" placeholder="Пароль">
         <input type="password" v-model="formData.password2" placeholder="Подтвердите пароль">
 
         <button class="form-btn" type="submit">Зарегистрироваться</button>
       </form>
-
     </div>
   </div>
 </template>
 
 <script>
-import SelectField from "@/components/fields/SelectField";
+import Select from "@/components/fields/Select";
 import axios from "axios"
 import urls from "@/utils/api";
 
 export default {
   components: {
-    SelectField
+    Select
   },
   data() {
     return {

@@ -9,8 +9,8 @@
       <form action="" class="form" @submit.prevent="submitForm">
         <input class="form-input" placeholder="Ваше новое Имя Фамилия" v-model="formData.full_name">
         <input type="text" class="form-input" placeholder="Возвраст" v-model="formData.age">
-        <SelectField field-key="city" v-model="formData.city"></SelectField>
-        <SelectField field-key="marrital_status" v-model="formData.marrital_status"></SelectField>
+        <Select field-key="city" v-model="formData.city"></Select>
+        <Select field-key="marrital_status" v-model="formData.marrital_status"></Select>
         <textarea class="form-mess"
                   maxlength="500"
                   cols="30"
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import SelectField from "@/components/fields/SelectField";
+import Select from "@/components/fields/Select";
 
 import axios from "axios";
 import urls from "@/utils/api";
@@ -34,7 +34,7 @@ import auth from "@/utils/auth";
 
 export default {
   components: {
-    SelectField
+    Select
   },
   data() {
     return {
