@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import LoadingContent from "@/components/LoadingContent";
+import LoadingContent from "@/components/exceptions/LoadingContent";
 
 import auth from "@/utils/auth";
 import urls from "@/utils/api";

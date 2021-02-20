@@ -36,10 +36,10 @@ export default {
     return {
       isOpen: false,
       numberOfItems: {
-        myAnswers: Number,
-        myQuestionnaires: Number,
-        receivedQuestionnaires: Number,
-        answersToMyQuestionnaires: Number
+        myAnswers: 0,
+        myQuestionnaires: 0,
+        receivedQuestionnaires: 0,
+        answersToMyQuestionnaires: 0
       }
     }
   },
@@ -62,10 +62,13 @@ export default {
     },
     toggleNavbar() {
       this.isOpen = !this.isOpen
-      this.getMyQuestions()
-      this.getReceivedQuestionnaires()
-      this.getAnswersToMyQuestionnaires()
-      this.getMyAnswers()
+
+      if (auth.isAuthenticated()) {
+        this.getMyQuestions()
+        this.getReceivedQuestionnaires()
+        this.getAnswersToMyQuestionnaires()
+        this.getMyAnswers()
+      }
     }
   },
 }

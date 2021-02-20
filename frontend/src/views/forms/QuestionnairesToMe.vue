@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import LoadingContent from "@/components/LoadingContent";
-import AuthorizationError from "@/components/AuthorizationError";
+import LoadingContent from "@/components/exceptions/LoadingContent";
+import AuthorizationError from "@/components/exceptions/AuthorizationError";
 import SingleQuestionnaire from "@/components/SingleQuestionnaire";
 
 import axios from "axios";

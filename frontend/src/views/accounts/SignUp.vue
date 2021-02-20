@@ -13,19 +13,10 @@
           <option value="woman">Женский</option>
           <option value="hidden">Не указано</option>
         </select>
-        <select v-model="formData.religion">
-          <option value="" disabled selected hidden>Религия</option>
-          <option v-for="(religion, index) in religionChoices" :key="index" :value="religion">{{ religion }}</option>
-        </select>
+        <SelectField placeholder="Религия" field-key="religion" :form-data="formData"></SelectField>
         <input type="number" v-model="formData.age" placeholder="Возраст">
-        <select v-model="formData.city">
-          <option value="" disabled selected hidden>Город</option>
-          <option v-for="(city, index) in cityChoices" :key="index" :value="city">{{ city }}</option>
-        </select>
-        <select v-model="formData.marrital_status">
-          <option value="" disabled selected hidden>Семейный статус</option>
-          <option v-for="(status, index) in marritalStatusChoices" :key="index" :value="status">{{ status }}</option>
-        </select>
+        <SelectField placeholder="Город" field-key="city" :form-data="formData"></SelectField>
+        <SelectField placeholder="Семейное положение" field-key="marrital_status" :form-data="formData"></SelectField>
         <textarea v-model="formData.about" cols="30" rows="10" placeholder="О себе"></textarea>
         <input type="password" v-model="formData.password" placeholder="Пароль">
         <input type="password" v-model="formData.password2" placeholder="Подтвердите пароль">
@@ -38,10 +29,14 @@
 </template>
 
 <script>
+import SelectField from "@/components/fields/SelectField";
 import axios from "axios"
 import urls from "@/utils/api";
 
 export default {
+  components: {
+    SelectField
+  },
   data() {
     return {
       formData: {
@@ -55,20 +50,7 @@ export default {
         about: "",
         password: "",
         password2: ""
-      },
-      cityChoices: ["Бишкек", "Ош", "Нарын", "Ыссык-Кол", "Талас", "Жалал-Абад", "Баткен"],
-      marritalStatusChoices: [
-        "Не женат / Не замужем. Нет детей",
-        "Женат / Замужем. Нет детей",
-        "Женат / Замужем. Есть дети",
-        "В разводе",
-        "Вдовец / Вдова",
-        "Гражданский брак. Нет детей",
-        "Гражданский брак. Есть дети",
-      ],
-      religionChoices: [
-        "Христианство", "Ислам", "Индуизм", "Буддизм", "Синтоизм", "Даосизм", "Сикхизм", "Иудаизм", "Шаманизм", "Каодай"
-      ]
+      }
     }
   },
   methods: {

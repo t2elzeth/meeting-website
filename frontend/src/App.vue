@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Nav from './components/Nav'
-import Footer from './components/Footer'
+import Nav from './components/layout/Nav'
+import Footer from './components/layout/Footer'
 
 export default {
   name: 'App',

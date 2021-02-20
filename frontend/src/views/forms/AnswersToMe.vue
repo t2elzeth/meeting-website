@@ -18,8 +18,8 @@
 import SingleAnswer from "@/components/SingleAnswer";
 
 import axios from "axios";
-import urls from "../utils/api";
-import auth from "../utils/auth";
+import urls from "../../utils/api";
+import auth from "../../utils/auth";
 
 export default {
   components: {

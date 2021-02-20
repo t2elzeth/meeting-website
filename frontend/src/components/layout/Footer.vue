@@ -37,18 +37,18 @@
       </div>
 
     </div>
-    <Error v-else error-message="Ошибка! Пожалуйста войдите в свой аккаунт или зарегестрируйтесь."></Error>
+    <AuthorizationError></AuthorizationError>
   </footer>
   <div v-else>Content is loading</div>
 </template>
 
 <script>
+import AuthorizationError from "@/components/exceptions/AuthorizationError";
 import auth from "@/utils/auth";
-import Error from "@/components/Error";
 
 export default {
   components: {
-    Error
+    AuthorizationError,
   },
   data() {
     return {

@@ -21,7 +21,7 @@
 
 <script>
 import SingleQuestionnaire from "@/components/SingleQuestionnaire";
-import LoadingContent from "@/components/LoadingContent";
+import LoadingContent from "@/components/exceptions/LoadingContent";
 
 import {fetchDataWithCred} from "@/utils/fetch"
 

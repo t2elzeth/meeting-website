@@ -12,15 +12,9 @@
                maxlength="25"
                v-model="formData.full_name">
         <input type="text" class="form-input" placeholder="Возвраст" v-model="formData.age">
-        <select v-model="formData.city">
-          <option value="" disabled selected hidden>Город</option>
-          <option v-for="(city, index) in cityChoices" :key="index" :value="city">{{ city }}</option>
-        </select>
-        <SelectField></SelectField>
-        <select v-model="formData.marrital_status">
-          <option value="" disabled selected hidden>Семейный статус</option>
-          <option v-for="(status, index) in marritalStatusChoices" :key="index" :value="status">{{ status }}</option>
-        </select>
+        <SelectField placeholder="Город" field-key="city" :form-data="formData"></SelectField>
+        <SelectField placeholder="Семейное положение" field-key="marrital_status"
+                     :form-data="formData"></SelectField>
         <textarea class="form-mess"
                   maxlength="500"
                   cols="30"
@@ -36,7 +30,7 @@
 </template>
 
 <script>
-import SelectField from "@/components/SelectField";
+import SelectField from "@/components/fields/SelectField";
 
 import axios from "axios";
 import urls from "@/utils/api";
@@ -55,16 +49,6 @@ export default {
         about: "",
         age: ""
       },
-      cityChoices: ["Бишкек", "Ош", "Нарын", "Ыссык-Кол", "Талас", "Жалал-Абад", "Баткен"],
-      marritalStatusChoices: [
-        "Не женат / Не замужем. Нет детей",
-        "Женат / Замужем. Нет детей",
-        "Женат / Замужем. Есть дети",
-        "В разводе",
-        "Вдовец / Вдова",
-        "Гражданский брак. Нет детей",
-        "Гражданский брак. Есть дети",
-      ],
     }
   },
   methods: {
@@ -83,12 +67,13 @@ export default {
     },
     logout() {
       axios.post(urls.logout, {}, auth.getCredentials())
-           .then(res => res.data)
+           .then(res => {
+             console.log(res.data)
+             auth.removeToken()
+             this.$store.dispatch("deleteMeState")
+             this.$router.push({name: "login"})
+           })
            .catch(console.log)
-
-      auth.removeToken()
-      this.$store.dispatch("deleteMeState")
-      this.$router.push({name: "login"})
     }
   }
 }
