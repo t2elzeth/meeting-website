@@ -25,17 +25,19 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = ["question"]
 
 
-class QuestionnaireSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Questionnaire
-        fields = ['id', 'title']
-        read_only_fields = ['id']
-
-
 class FromUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "email", "full_name"]
+
+
+class QuestionnaireSerializer(serializers.ModelSerializer):
+    owner = FromUserSerializer()
+
+    class Meta:
+        model = Questionnaire
+        fields = ['id', 'owner', 'title']
+        read_only_fields = ['id', 'owner']
 
 
 class QuestionnaireDetailSerializer(serializers.ModelSerializer):
@@ -51,7 +53,7 @@ class QuestionnaireDetailSerializer(serializers.ModelSerializer):
 class ToQuestionnaireSerializer(serializers.ModelSerializer):
     class Meta:
         model = Questionnaire
-        fields = ["title"]
+        fields = ["id", "title"]
 
 
 class CreateAnswerSheetSerializer(serializers.ModelSerializer):
@@ -99,12 +101,13 @@ class AnswerSheetSerializer(serializers.ModelSerializer):
 class CreateSendQuestionnaireSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReceivedQuestionnaire
-        fields = ["questionnaire"]
+        fields = ["to_user"]
 
 
 class SendQuestionnaireSerializer(serializers.ModelSerializer):
     from_user = FromUserSerializer()
     to_user = FromUserSerializer()
+    questionnaire = QuestionnaireSerializer()
 
     class Meta:
         model = ReceivedQuestionnaire

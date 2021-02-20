@@ -32,7 +32,10 @@ export default {
   methods: {
     submitForm() {
       axios.post(urls.login, {email: this.email, password: this.password})
-           .then(res => auth.setCredentials(res.data))
+           .then(res => {
+             auth.setCredentials(res.data)
+             this.$store.dispatch("setMeState")
+           })
            .catch(err => console.log(err))
 
       return this.$router.push({name: "allques"})
