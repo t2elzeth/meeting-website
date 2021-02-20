@@ -37,7 +37,7 @@
       </div>
 
     </div>
-    <AuthorizationError></AuthorizationError>
+    <AuthorizationError v-else></AuthorizationError>
   </footer>
   <div v-else>Content is loading</div>
 </template>

@@ -110,8 +110,12 @@ const routes = [
     name: 'search',
     component: () => import("@/views/accounts/SearchAccounts")
   },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import("@/views/404")
+  }
 ]
-
 const router = createRouter({
   history: createWebHistory(),
   routes

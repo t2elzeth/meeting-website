@@ -50,7 +50,10 @@ export default {
   methods: {
     submitForm() {
       axios.patch(urls.whoAmI, this.getFormData(), auth.getCredentials())
-           .then(res => console.log(res.data))
+           .then(res => {
+             console.log(res.data)
+             this.$store.dispatch("setMeState")
+           })
            .catch(err => console.log(err))
     },
     getFormData() {

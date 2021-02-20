@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  nginx:
+    build: ./nginx
+    volumes:
+      - ../../dist:/app/http
+    ports:
+      - "8920:80"
