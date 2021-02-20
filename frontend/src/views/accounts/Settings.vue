@@ -9,9 +9,8 @@
       <form action="" class="form" @submit.prevent="submitForm">
         <input class="form-input" placeholder="Ваше новое Имя Фамилия" v-model="formData.full_name">
         <input type="text" class="form-input" placeholder="Возвраст" v-model="formData.age">
-        <SelectField placeholder="Город" field-key="city" v-model="formData.city"></SelectField>
-        <SelectField placeholder="Семейное положение" field-key="marrital_status"
-                     v-model="formData.marrital_status"></SelectField>
+        <SelectField field-key="city" v-model="formData.city"></SelectField>
+        <SelectField field-key="marrital_status" v-model="formData.marrital_status"></SelectField>
         <textarea class="form-mess"
                   maxlength="500"
                   cols="30"

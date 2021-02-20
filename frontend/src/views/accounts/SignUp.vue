@@ -13,10 +13,10 @@
           <option value="woman">Женский</option>
           <option value="hidden">Не указано</option>
         </select>
-        <SelectField placeholder="Религия" field-key="religion" :form-data="formData"></SelectField>
+        <SelectField field-key="religion" v-model="formData.religion"></SelectField>
         <input type="number" v-model="formData.age" placeholder="Возраст">
-        <SelectField placeholder="Город" field-key="city" :form-data="formData"></SelectField>
-        <SelectField placeholder="Семейное положение" field-key="marrital_status" :form-data="formData"></SelectField>
+        <SelectField field-key="city" v-model="formData.city"></SelectField>
+        <SelectField field-key="marrital_status" v-model="formData.marrital_status"></SelectField>
         <textarea v-model="formData.about" cols="30" rows="10" placeholder="О себе"></textarea>
         <input type="password" v-model="formData.password" placeholder="Пароль">
         <input type="password" v-model="formData.password2" placeholder="Подтвердите пароль">
