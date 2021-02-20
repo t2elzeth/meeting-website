@@ -6,8 +6,6 @@
 </template>
 
 <script>
-import selectFields from "@/utils/fields/selectFields";
-
 export default {
   props: ["placeholder", "fieldKey", "modelValue"],
   data() {
@@ -15,5 +13,21 @@ export default {
       selectFields,
     }
   },
+}
+
+const selectFields = {
+  city: ["Бишкек", "Ош", "Нарын", "Ыссык-Кол", "Талас", "Жалал-Абад", "Баткен"],
+  marrital_status: [
+    "Не женат / Не замужем. Нет детей",
+    "Женат / Замужем. Нет детей",
+    "Женат / Замужем. Есть дети",
+    "В разводе",
+    "Вдовец / Вдова",
+    "Гражданский брак. Нет детей",
+    "Гражданский брак. Есть дети",
+  ],
+  religion: [
+    "Христианство", "Ислам", "Индуизм", "Буддизм", "Синтоизм", "Даосизм", "Сикхизм", "Иудаизм", "Шаманизм", "Каодай"
+  ]
 }
 </script>
