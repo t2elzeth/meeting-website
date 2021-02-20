@@ -49,10 +49,9 @@ export default {
   },
   methods: {
     submitForm() {
-      // axios.patch(urls.whoAmI, this.getFormData(), auth.getCredentials())
-      //      .then(res => console.log(res.data))
-      //      .catch(err => console.log(err))
-      console.log(this.formData)
+      axios.patch(urls.whoAmI, this.getFormData(), auth.getCredentials())
+           .then(res => console.log(res.data))
+           .catch(err => console.log(err))
     },
     getFormData() {
       let data = {}
