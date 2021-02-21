@@ -1,6 +1,6 @@
 <template>
   <section class="questions">
-    <div class="wrapper" v-if="dataFetched">
+    <div class="wrapper" v-if="!loading">
       <p class="title">Все анкеты</p>
       <form action="" @submit.prevent="searchQuestionnaires">
         <input type="text" v-model="searchFormData.title" placeholder="Заголовок">
@@ -21,7 +21,7 @@
 import SingleQuestionnaire from "@/components/SingleQuestionnaire";
 import LoadingContent from "@/components/exceptions/LoadingContent";
 
-import {fetchDataWithCred} from "@/utils/fetch"
+import {getQuestionnairesList} from "@/utils/api";
 
 export default {
   components: {
@@ -30,25 +30,21 @@ export default {
   data() {
     return {
       serverData: {},
-      dataFetched: false,
+      loading: true,
       searchFormData: {
         title: ""
       }
     }
   },
   methods: {
-    setServerData(data) {
-      this.serverData = data
-      this.dataFetched = true
-    },
-    searchQuestionnaires() {
-      fetchDataWithCred.get("allQues", {params: {...this.searchFormData}})
-                       .then(res => this.serverData = res.data)
+    async searchQuestionnaires() {
+      this.serverData = await getQuestionnairesList(this.searchFormData)
     }
   },
-  beforeRouteEnter(to, from, next) {
-    fetchDataWithCred.get("allQues").then(res => next(vm => vm.setServerData(res.data)))
-  },
+  async created() {
+    this.serverData = await getQuestionnairesList()
+    this.loading = false
+  }
 }
 </script>
 

@@ -1,3 +1,6 @@
+import axios from "axios";
+import auth from "@/utils/auth";
+
 const urljoin = require("url-join");
 
 export const apiServer = "http://127.0.0.1:8001/";
@@ -21,3 +24,7 @@ const urls = {
 };
 
 export default urls
+
+export async function getQuestionnairesList(params) {
+  return (await axios.get(urls.allQues, {...auth.getCredentials(), params: {...params}})).data
+}
