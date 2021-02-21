@@ -19,7 +19,7 @@ export default {
              auth.removeToken()
              this.$store.dispatch("deleteMeState")
              location.reload()
-             this.$router.push({name: "autorize"})
+             this.$router.push({name: "login"})
            })
            .catch(console.log)
     },

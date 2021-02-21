@@ -6,8 +6,8 @@
 
         <div class="footer-account">
 
-          <button @click="$router.push({ name: 'regis' })" class="footer-btn">Зарегестрироваться</button>
-          <button @click="$router.push({ name: 'autorize' })" class="footer-btn">Войти</button>
+          <button @click="$router.push({ name: 'signup' })" class="footer-btn">Зарегестрироваться</button>
+          <button @click="$router.push({ name: 'login' })" class="footer-btn">Войти</button>
 
         </div>
 

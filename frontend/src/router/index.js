@@ -21,12 +21,12 @@ const routes = [
       },
       {
         path: 'login', //Авторизоваться (войти)
-        name: 'autorize',
+        name: 'login',
         component: () => import("@/views/accounts/Login")
       },
       {
         path: 'signup', //Зарегестрироваться
-        name: 'regis',
+        name: 'signup',
         component: () => import("@/views/accounts/SignUp")
       },
       {
@@ -133,7 +133,7 @@ router.beforeEach(to => {
   if (to.matched.some(record => record.meta.requiresAuth) && !auth.isAuthenticated()) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    return {name: "autorize"};
+    return {name: "login"};
   }
   return true // does not require auth
 })
