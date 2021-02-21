@@ -2,7 +2,7 @@
   <div class="settings">
     <div class="wrapper">
 
-      <button @click="logout" class="quest-btn">Выйти из аккаунта</button>
+      <button @click="$router.push({name: 'logout'})" class="quest-btn">Выйти из аккаунта</button>
 
       <p class="title">Общая информация вашего аккаунта</p>
 
@@ -63,16 +63,6 @@ export default {
         if (this.formData[key]) data[key] = this.formData[key]
       })
       return data
-    },
-    logout() {
-      axios.post(urls.logout, {}, auth.getCredentials())
-           .then(res => {
-             console.log(res.data)
-             auth.removeToken()
-             this.$store.dispatch("deleteMeState")
-             this.$router.push({name: "login"})
-           })
-           .catch(console.log)
     },
   }
 }

@@ -49,7 +49,7 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    fetchDataWithCred.get("allQues",).then(res => next(vm => vm.setServerData(res.data)))
+    fetchDataWithCred.get("allQues").then(res => next(vm => vm.setServerData(res.data)))
   },
 }
 </script>

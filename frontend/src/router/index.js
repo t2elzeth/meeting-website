@@ -8,76 +8,102 @@ const routes = [
     component: () => import("@/views/Home")
   },
   {
-    path: '/users/:id', //Страница для просмотра информаций аккаунта
-    name: 'account-detail',
-    meta: {
-      requiresAuth: true
-    },
-    component: () => import("@/views/accounts/AccountDetail")
+    path: '/users/',
+    component: () => import('@/views/accounts/User'),
+    children: [
+      {
+        path: ':id', //Страница для просмотра информаций аккаунта
+        name: 'account-detail',
+        meta: {
+          requiresAuth: true
+        },
+        component: () => import("@/views/accounts/AccountDetail")
+      },
+      {
+        path: 'login', //Авторизоваться (войти)
+        name: 'autorize',
+        component: () => import("@/views/accounts/Login")
+      },
+      {
+        path: 'signup', //Зарегестрироваться
+        name: 'regis',
+        component: () => import("@/views/accounts/SignUp")
+      },
+      {
+        path: 'settings', //Настройки
+        name: 'settings',
+        meta: {
+          requiresAuth: true
+        },
+        component: () => import("@/views/accounts/Settings")
+      },
+      {
+        path: 'logout',
+        name: 'logout',
+        meta: {
+          requiresAuth: true
+        },
+        component: () => import("@/views/accounts/Logout")
+      }
+    ]
   },
   {
-    path: '/questionnaires', //Все вопросы
-    name: 'allques',
+    path: '/questionnaires',
     meta: {
       requiresAuth: true
     },
-    component: () => import("@/views/forms/AllQuestionnaires")
+    component: () => import("@/views/forms/Questionnaires"),
+    children: [
+      {
+        path: '',
+        name: 'allques',
+        component: () => import("@/views/forms/AllQuestionnaires")
+      },
+      {
+        path: ':id/questions',
+        name: 'questionnaire-questions',
+        component: () => import("@/views/forms/Questions")
+      },
+      {
+        path: 'my',
+        name: 'myques',
+        component: () => import('@/views/forms/MyQuestionnaires')
+      },
+      {
+        path: 'tome', //Вам задали
+        name: 'ansyou',
+        component: () => import("@/views/forms/QuestionnairesToMe")
+      },
+      {
+        path: 'new', //Создать вопрос
+        name: 'addques',
+        component: () => import("@/views/forms/CreateNewQuestionnaire")
+      },
+    ]
   },
   {
-    path: '/questionnaires/:id/questions', //Посмотреть на свои вопросы (какого либо теста)
-    name: 'questionnaire-questions',
+    path: '/answers',
     meta: {
       requiresAuth: true
     },
-    component: () => import("@/views/forms/Questions")
-  },
-  {
-    path: '/questionnaires/my', //Мои вопросы
-    name: 'myques',
-    meta: {
-      requiresAuth: true
-    },
-    component: () => import("@/views/forms/MyQuestionnaires")
-  },
-  {
-    path: '/questionnaires/tome', //Вам задали
-    name: 'ansyou',
-    meta: {
-      requiresAuth: true
-    },
-    component: () => import("@/views/forms/QuestionnairesToMe")
-  },
-  {
-    path: '/questionnaires/new', //Создать вопрос
-    name: 'addques',
-    meta: {
-      requiresAuth: true
-    },
-    component: () => import("@/views/forms/CreateNewQuestionnaire")
-  },
-  {
-    path: '/answers/:id', //Посмотреть на ответы человека который ответил на твой тест
-    name: 'look-answer-human',
-    meta: {
-      requiresAuth: true
-    },
-    component: () => import("@/views/forms/Answers")
-  },
-  {
-    path: '/answers/my', // Мои ответы
-    name: 'myanswer',
-    meta: {
-      requiresAuth: true
-    },
-    component: () => import("@/views/forms/MyAnswers")
-  },
-  {
-    path: '/answers/tome', //Вам ответили
-    name: 'askyou',
-    meta: {
-      requiresAuth: true
-    },
-    component: () => import("@/views/forms/AnswersToMe")
+    component: () => import("@/views/forms/Answers"),
+    children: [
+      {
+        path: ':id', //Посмотреть на ответы человека который ответил на твой тест
+        name: 'look-answer-human',
+        component: () => import("@/views/forms/AllAnswers")
+      },
+      {
+        path: 'my', // Мои ответы
+        name: 'myanswer',
+        component: () => import("@/views/forms/MyAnswers")
+      },
+      {
+        path: 'tome', //Вам ответили
+        name: 'askyou',
+        component: () => import("@/views/forms/AnswersToMe")
+      },
+    ]
   },
   {
     path: '/support', // Тех. Поддержка
@@ -86,24 +112,6 @@ const routes = [
       requiresAuth: true
     },
     component: () => import("@/views/Support")
-  },
-  {
-    path: '/login', //Авторизоваться (войти)
-    name: 'autorize',
-    component: () => import("@/views/accounts/Login")
-  },
-  {
-    path: '/signup', //Зарегестрироваться
-    name: 'regis',
-    component: () => import("@/views/accounts/SignUp")
-  },
-  {
-    path: '/settings', //Настройки
-    name: 'settings',
-    // meta: {
-    //   requiresAuth: true
-    // },
-    component: () => import("@/views/accounts/Settings")
   },
   {
     path: '/search', //Страница поиска
