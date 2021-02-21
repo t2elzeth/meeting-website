@@ -2,12 +2,10 @@
   <section class="questions">
     <div class="wrapper" v-if="dataFetched">
       <p class="title">Все анкеты</p>
-      <div>
-        <form action="" @submit.prevent="searchQuestionnaires">
-          <input type="text" v-model="searchFormData.title" placeholder="Заголовок">
-          <button>Поиск</button>
-        </form>
-      </div>
+      <form action="" @submit.prevent="searchQuestionnaires">
+        <input type="text" v-model="searchFormData.title" placeholder="Заголовок">
+        <button>Поиск</button>
+      </form>
       <SingleQuestionnaire
           v-for="item in serverData"
           :key="item.id"
