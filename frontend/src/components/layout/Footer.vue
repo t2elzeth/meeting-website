@@ -98,7 +98,6 @@ export default {
 
     &-btn {
       display: flex;
-      padding: 5px 10px 5px 0;
       border: none;
       background: none;
       outline: none;
