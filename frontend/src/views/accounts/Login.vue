@@ -34,10 +34,9 @@ export default {
            .then(res => {
              auth.setCredentials(res.data)
              this.$store.dispatch("setMeState")
+             this.$router.push({name: 'allques'})
            })
            .catch(err => console.log(err))
-
-      return this.$router.push({name: "allques"})
     }
   },
 }

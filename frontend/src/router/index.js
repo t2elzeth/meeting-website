@@ -129,16 +129,13 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(to => {
   if (to.matched.some(record => record.meta.requiresAuth) && !auth.isAuthenticated()) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    next({name: "autorize"})
-
-    return null;
-  } else {
-    next() // does not require auth
+    return {name: "autorize"};
   }
+  return true // does not require auth
 })
 
 
