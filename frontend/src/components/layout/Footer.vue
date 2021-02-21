@@ -1,43 +1,25 @@
 <template>
   <footer class="footer">
     <div class="wrapper" v-if="auth.isAuthenticated()">
-
       <div class="footer-content">
-
-        <div class="footer-account">
-
-          <button @click="$router.push({ name: 'signup' })" class="footer-btn">Зарегестрироваться</button>
-          <button @click="$router.push({ name: 'login' })" class="footer-btn">Войти</button>
-
-        </div>
-
-        <!-- как будет выглядеть аккаунт -->
-
         <div class="footer-settings">
-
           <div class="footer-settings-info">
-
             <span class="footer-settings-text">{{ serverData.full_name }}</span>
-
             <button @click="$router.push({ name: 'settings' })" class="footer-settings-btn">Настройки</button>
-
             <button @click="$router.push({ name: 'addques' })" class="add-button">Создать вопросник [+]</button>
-
           </div>
-
-
         </div>
-
         <div class="footer-nav">
           <button @click="$router.push({ name: 'main' })" class="footer-btn">На главную</button>
-
           <button @click="$router.push({ name: 'search' })" class="footer-btn">Поиск</button>
         </div>
-
       </div>
-
     </div>
-    <AuthorizationError v-else></AuthorizationError>
+    <div v-else>
+      <button @click="$router.push({ name: 'signup' })" class="footer-btn">Зарегистрироваться</button>
+      <button @click="$router.push({ name: 'login' })" class="footer-btn">Войти</button>
+      <AuthorizationError></AuthorizationError>
+    </div>
   </footer>
 </template>
 
