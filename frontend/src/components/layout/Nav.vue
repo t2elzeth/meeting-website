@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import axios from "axios";
-import urls from "@/utils/api";
+const api = require("@/utils/api")
+
 import auth from "@/utils/auth";
 
 export default {
@@ -44,30 +44,14 @@ export default {
     }
   },
   methods: {
-    getMyQuestions() {
-      axios.get(urls.myQuestionnaires, auth.getCredentials())
-           .then(res => this.numberOfItems.myQuestionnaires = res.data.length)
-    },
-    getReceivedQuestionnaires() {
-      axios.get(urls.receivedQuestionnaires, auth.getCredentials())
-           .then(res => this.numberOfItems.receivedQuestionnaires = res.data.length)
-    },
-    getAnswersToMyQuestionnaires() {
-      axios.get(urls.answersToMyQuestionnaires, auth.getCredentials())
-           .then(res => this.numberOfItems.answersToMyQuestionnaires = res.data.length)
-    },
-    getMyAnswers() {
-      axios.get(urls.myAnswers, auth.getCredentials())
-           .then(res => this.numberOfItems.myAnswers = res.data.length)
-    },
-    toggleNavbar() {
+    async toggleNavbar() {
       this.isOpen = !this.isOpen
 
       if (auth.isAuthenticated()) {
-        this.getMyQuestions()
-        this.getReceivedQuestionnaires()
-        this.getAnswersToMyQuestionnaires()
-        this.getMyAnswers()
+        this.numberOfItems.myQuestionnaires = (await api.myQuestionnaires()).length
+        this.numberOfItems.receivedQuestionnaires = (await api.receivedQuestionnaires()).length
+        this.numberOfItems.answersToMyQuestionnaires = (await api.answersToMyQuestionnaires()).length
+        this.numberOfItems.myAnswers = (await api.myAnswers()).length
       }
     }
   },

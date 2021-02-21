@@ -5,22 +5,26 @@ const urljoin = require("url-join");
 
 export const apiServer = "http://127.0.0.1:8001/";
 
+function getUrl(...args) {
+  return urljoin(apiServer, ...args)
+}
+
 const urls = {
-  signUp: urljoin(apiServer, "api/v1/auth/users/"),
-  login: urljoin(apiServer, "api/v1/auth/token/login/"),
-  logout: urljoin(apiServer, "api/v1/auth/token/logout/"),
-  whoAmI: urljoin(apiServer, "api/v1/auth/users/me/"),
-  userDetail: userId => urljoin(apiServer, "api/v1/auth/users/", userId.toString()),
-  allQues: urljoin(apiServer, "api/v1/forms/questionnaires/"),
-  sendQuestionnaire: questionnaireId => urljoin(apiServer, "api/v1/forms/questionnaires/", questionnaireId.toString(), "send/"),
-  receivedQuestionnaires: urljoin(apiServer, "api/v1/forms/questionnaires/received/"),
-  myAnswers: urljoin(apiServer, "api/v1/forms/answers/my/"),
-  myQuestionnaires: urljoin(apiServer, "api/v1/forms/questionnaires/my/"),
-  answersToMyQuestionnaires: urljoin(apiServer, "api/v1/forms/answers/to_my_questionnaires/"),
-  quesionnairyDetail: questionnaireId => urljoin(apiServer, "api/v1/forms/questionnaires/", questionnaireId.toString()),
-  answerDetail: answerId => urljoin(apiServer, "api/v1/forms/answers/", answerId.toString()),
-  ansQues: questionnaireId => urljoin(apiServer, "api/v1/forms/questionnaires/", questionnaireId.toString(), "answer/"),
-  addQues: urljoin(apiServer, "api/v1/forms/questionnaires/")
+  signUp: getUrl("api/v1/auth/users/"),
+  login: getUrl("api/v1/auth/token/login/"),
+  logout: getUrl("api/v1/auth/token/logout/"),
+  whoAmI: getUrl("api/v1/auth/users/me/"),
+  userDetail: userId => getUrl("api/v1/auth/users/", userId.toString()),
+  allQues: getUrl("api/v1/forms/questionnaires/"),
+  sendQuestionnaire: questionnaireId => getUrl("api/v1/forms/questionnaires/", questionnaireId.toString(), "send/"),
+  receivedQuestionnaires: getUrl("api/v1/forms/questionnaires/received/"),
+  myAnswers: getUrl("api/v1/forms/answers/my/"),
+  myQuestionnaires: getUrl("api/v1/forms/questionnaires/my/"),
+  answersToMyQuestionnaires: getUrl("api/v1/forms/answers/to_my_questionnaires/"),
+  quesionnairyDetail: questionnaireId => getUrl("api/v1/forms/questionnaires/", questionnaireId.toString()),
+  answerDetail: answerId => getUrl("api/v1/forms/answers/", answerId.toString()),
+  ansQues: questionnaireId => getUrl("api/v1/forms/questionnaires/", questionnaireId.toString(), "answer/"),
+  addQues: getUrl("api/v1/forms/questionnaires/")
 };
 
 export async function getQuestionnairesList(params) {
@@ -83,4 +87,8 @@ export async function signUp(data) {
 
 export async function answerToQuestionnaire(answers, questionnaireId) {
   return (await axios.post(urls.ansQues(questionnaireId), {answers})).data
+}
+
+export async function receivedQuestionnaires() {
+  return (await axios.get(urls.receivedQuestionnaires, auth.getCredentials())).data
 }
