@@ -1,23 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import auth from "@/utils/auth";
 
-const User = {
-  template: `
-  <div>
-    <router-view></router-view>
-  </div>
-`
-}
-
-const Questionnaires = {
-  template: `
-  <div>
-    <router-view></router-view>
-  </div>
-`
-}
-
-const Answers = {
+const SimpleRouterViewComponent = {
   template: `
   <div>
     <router-view></router-view>
@@ -33,7 +17,7 @@ const routes = [
   },
   {
     path: '/users/',
-    component: User,
+    component: SimpleRouterViewComponent,
     children: [
       {
         path: ':id', //Страница для просмотра информаций аккаунта
@@ -76,7 +60,7 @@ const routes = [
     meta: {
       requiresAuth: true
     },
-    component: Questionnaires,
+    component: SimpleRouterViewComponent,
     children: [
       {
         path: '',
@@ -110,7 +94,7 @@ const routes = [
     meta: {
       requiresAuth: true
     },
-    component: Answers,
+    component: SimpleRouterViewComponent,
     children: [
       {
         path: ':id', //Посмотреть на ответы человека который ответил на твой тест
