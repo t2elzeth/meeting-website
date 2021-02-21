@@ -1,6 +1,6 @@
 <template>
   <div class="you">
-    <div class="wrapper">
+    <div class="wrapper" v-if="!loading">
       <p class="title">Вам ответили</p>
       <SingleAnswer
           class="quest"
@@ -11,33 +11,30 @@
           title-key="to_questionnaire">
       </SingleAnswer>
     </div>
+    <loading-content v-else></loading-content>
   </div>
 </template>
 
 <script>
 import SingleAnswer from "@/components/SingleAnswer";
+import LoadingContent from "@/components/exceptions/LoadingContent";
 
-import axios from "axios";
-import urls from "../../utils/api";
-import auth from "../../utils/auth";
+const api = require("@/utils/api")
 
 export default {
   components: {
+    LoadingContent,
     SingleAnswer
   },
   data() {
     return {
-      answers: []
+      answers: [],
+      loading: true
     }
   },
-  methods: {
-    getAnswersToMyQuestionnaires() {
-      axios.get(urls.answersToMyQuestionnaires, auth.getCredentials())
-           .then(res => this.answers = res.data)
-    },
-  },
-  mounted() {
-    this.getAnswersToMyQuestionnaires()
+  async created() {
+    this.answers = await api.answersToMyQuestionnaires()
+    this.loading = false
   }
 }
 </script>

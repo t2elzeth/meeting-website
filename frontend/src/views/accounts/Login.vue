@@ -17,9 +17,7 @@
 </template>
 
 <script>
-import auth from "@/utils/auth";
-import urls from "@/utils/api";
-import axios from 'axios'
+const api = require("@/utils/api")
 
 export default {
   data() {
@@ -29,14 +27,10 @@ export default {
     }
   },
   methods: {
-    submitForm() {
-      axios.post(urls.login, {email: this.email, password: this.password})
-           .then(res => {
-             auth.setCredentials(res.data)
-             this.$store.dispatch("setMeState")
-             this.$router.push({name: 'allques'})
-           })
-           .catch(err => console.log(err))
+    async submitForm() {
+      await api.login({email: this.email, password: this.password})
+      this.$store.dispatch("setMeState")
+      await this.$router.push({name: 'allques'})
     }
   },
 }

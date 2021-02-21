@@ -9,9 +9,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-import auth from "../utils/auth";
-import urls from "../utils/api";
+const api = require("@/utils/api")
 
 export default {
   props: {
@@ -27,10 +25,8 @@ export default {
       console.log(answer.target.value, answer.target.id)
       this.answers[answer.target.id] = answer.target.value
     },
-    submitData() {
-      axios.post(urls.ansQues(this.$props.serverData.id), {answers: Object.values(this.answers)}, auth.getCredentials())
-           .then(res => console.log(res.data))
-           .catch(err => console.log(err))
+    async submitData() {
+      await api.answerToQuestionnaire(Object.values(this.answers), this.serverData.id)
     },
   },
 }

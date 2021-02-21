@@ -11,16 +11,15 @@
                type="text" @change="updateQuestions">
 
         <button class="form-btn">Создать</button>
-        <button @click="addField" type="button">Добавить вопрос</button>
+        <button @click="rows.push({maxlength: 60})" type="button">Добавить вопрос</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import urls from "../../utils/api";
-import auth from "../../utils/auth";
+const api = require("@/utils/api")
+import {success} from "@/utils/notifications";
 
 export default {
   data() {
@@ -36,17 +35,13 @@ export default {
       console.log(field.target.value, field.target.id)
       this.questions[field.target.id] = field.target.value
     },
-    submitForm() {
-      axios.post(urls.addQues, {
+    async submitForm() {
+      await api.newQuestionnaire({
         questions: Object.values(this.questions),
         title: this.questionnaireTitle
-      }, auth.getCredentials())
-           .then(res => console.log(res.data))
-           .catch(err => console.log(err))
+      })
+      success("Your questionnaire has been successfully created!").then(() => this.$router.push({name: "myques"}))
     },
-    addField() {
-      this.rows.push({maxlength: 60})
-    }
   }
 }
 </script>

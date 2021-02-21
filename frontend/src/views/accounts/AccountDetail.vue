@@ -1,6 +1,6 @@
 <template>
   <div class="look">
-    <div class="wrapper" v-if="dataFetched">
+    <div class="wrapper" v-if="!loading">
       <p class="title">Информация об аккаунте</p>
 
       <div class="quest-list-look">
@@ -32,16 +32,14 @@
         <button>Отправить анкету</button>
       </form>
     </div>
-    <LoadingContent v-else></LoadingContent>
+    <loading-content v-else></loading-content>
   </div>
 </template>
 
 <script>
 import LoadingContent from "@/components/exceptions/LoadingContent";
 
-import auth from "@/utils/auth";
-import urls from "@/utils/api";
-import axios from "axios";
+const api = require("@/utils/api")
 
 export default {
   components: {
@@ -50,38 +48,20 @@ export default {
   data() {
     return {
       userData: {},
-      answers: {},
-      dataFetched: false,
+      loading: true,
       questionnaires: [],
       questionnaireIdToSend: Number
     }
   },
   methods: {
-    setUserData(data) {
-      this.userData = data
-      this.dataFetched = true
-
-      this.setQuestionnaires()
-    },
-    setQuestionnaires() {
-      axios.get(urls.myQuestionnaires, auth.getCredentials())
-           .then(res => this.questionnaires = res.data)
-           .catch(err => console.log(err))
-    },
-    sendQuestionnaire() {
-      axios.post(urls.sendQuestionnaire(this.questionnaireIdToSend), {to_user: this.userData.id}, auth.getCredentials())
-           .then(res => console.log(res.data))
-           .catch(err => console.log(err))
+    async sendQuestionnaire() {
+      await api.sendQuestionnaire(this.userData.id, this.questionnaireIdToSend)
     }
   },
-  beforeRouteEnter(to, from, next) {
-    axios.get(urls.userDetail(to.params.id), auth.getCredentials())
-         .then(res => next(vm => vm.setUserData(res.data)))
-         .catch(err => console.log(err))
-  },
+  async created() {
+    this.userData = await api.userDetail(this.$route.params.id)
+    this.questionnaires = await api.myQuestionnaires()
+    this.loading = false
+  }
 }
 </script>
-
-<style>
-
-</style>

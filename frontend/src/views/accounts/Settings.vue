@@ -28,9 +28,7 @@
 <script>
 import Select from "@/components/fields/Select";
 
-import axios from "axios";
-import urls from "@/utils/api";
-import auth from "@/utils/auth";
+const api = require("@/utils/api")
 
 export default {
   components: {
@@ -48,13 +46,9 @@ export default {
     }
   },
   methods: {
-    submitForm() {
-      axios.patch(urls.whoAmI, this.getFormData(), auth.getCredentials())
-           .then(res => {
-             console.log(res.data)
-             this.$store.dispatch("setMeState")
-           })
-           .catch(err => console.log(err))
+    async submitForm() {
+      await api.editAccount(this.getFormData())
+      this.$store.dispatch("setMeState")
     },
     getFormData() {
       let data = {}

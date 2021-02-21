@@ -1,6 +1,6 @@
 <template>
   <section class="answers">
-    <div class="wrapper">
+    <div class="wrapper" v-if="!loading">
       <p class="title">Ваши ответы</p>
       <div v-for="item in serverData" :key="item.id" class="quest">
         <p class="quest-title"><strong>{{ item.to_questionnaire.title }}</strong></p>
@@ -9,45 +9,27 @@
         </button>
       </div>
     </div>
+    <loading-content v-else></loading-content>
   </section>
 </template>
 
 <script>
-import axios from "axios";
-import urls from "@/utils/api";
-import auth from "@/utils/auth";
+import LoadingContent from "@/components/exceptions/LoadingContent";
+
+const api = require("@/utils/api")
 
 export default {
+  components: {LoadingContent},
   data() {
     return {
       serverData: {},
-      dataFetched: false,
-      searchFormData: {
-        title: ""
-      }
+      loading: true,
     }
   },
-  methods: {
-    setServerData(data) {
-      this.serverData = data
-      this.dataFetched = true
-    },
-    searchQuestionnaires() {
-      axios.get(urls.myAnswers, {
-        ...auth.getCredentials(),
-        params: {...this.searchFormData}
-      })
-           .then(res => this.serverData = res.data)
-           .catch(console.log)
-    }
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      axios.get(urls.myAnswers, auth.getCredentials())
-           .then(res => vm.setServerData(res.data))
-           .catch(err => console.log(err))
-    })
-  },
+  async created() {
+    this.serverData = await api.myAnswers()
+    this.loading = false
+  }
 }
 </script>
 

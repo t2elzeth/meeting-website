@@ -29,8 +29,8 @@
 
 <script>
 import Select from "@/components/fields/Select";
-import axios from "axios"
-import urls from "@/utils/api";
+
+const api = require("@/utils/api")
 
 export default {
   components: {
@@ -53,10 +53,8 @@ export default {
     }
   },
   methods: {
-    submitForm() {
-      axios.post(urls.signUp, this.formData)
-           .then(res => console.log(res.data))
-           .catch(err => console.log(err))
+    async submitForm() {
+      await api.signUp(this.formData)
     }
   }
 }

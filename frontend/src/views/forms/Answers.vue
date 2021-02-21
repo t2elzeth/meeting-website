@@ -1,9 +1,10 @@
 <template>
   <div class="look">
-    <div class="wrapper" v-if="dataFetched">
+    <div class="wrapper" v-if="!loading">
       <div class="quest-acc-title title">
         <p class="quest-acc-title-info title">Посмотреть ответы на {{ serverData.to_questionnaire.title }} от</p>
-        <button @click="$router.push({ name: 'account-detail',  params: {id: serverData.from_user.id }})" class="quest-acc-btn">
+        <button @click="$router.push({ name: 'account-detail',  params: {id: serverData.from_user.id }})"
+                class="quest-acc-btn">
           {{ serverData.from_user.full_name }}
         </button>
         <template v-for="answers in serverData.answers" :key="answers.question">
@@ -17,36 +18,19 @@
 </template>
 
 <script>
-import axios from "axios";
-import urls from "@/utils/api";
-import auth from "@/utils/auth";
+const api = require("@/utils/api")
 
 export default {
   data() {
     return {
       serverData: {},
-      dataFetched: false,
+      loading: true,
     }
   },
-  methods: {
-    setServerData(data) {
-      this.serverData = data
-      this.dataFetched = true
-    },
-    searchQuestionnaires() {
-      axios.get(urls.myQuestionnaires, {
-        ...auth.getCredentials(),
-        params: {...this.searchFormData}
-      })
-           .then(res => this.serverData = res.data)
-           .catch(console.log)
-    }
-  },
-  beforeRouteEnter(to, from, next) {
-    axios.get(urls.answerDetail(to.params.id), auth.getCredentials())
-         .then(res => next(vm => vm.setServerData(res.data)))
-         .catch(err => console.log(err))
-  },
+  async created() {
+    this.serverData = await api.answerDetail(this.$route.params.id)
+    this.loading = false
+  }
 }
 </script>
 

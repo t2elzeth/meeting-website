@@ -5,27 +5,15 @@
 </template>
 
 <script>
-import axios from "axios";
-import urls from "@/utils/api";
-import auth from "@/utils/auth";
+const api = require("@/utils/api")
 
 export default {
   name: "Logout",
-  methods: {
-    logout() {
-      axios.post(urls.logout, {}, auth.getCredentials())
-           .then(res => {
-             console.log(res.data)
-             auth.removeToken()
-             this.$store.dispatch("deleteMeState")
-             location.reload()
-             this.$router.push({name: "login"})
-           })
-           .catch(console.log)
-    },
-  },
-  created() {
-    this.logout()
+  async created() {
+    await api.logout()
+    this.$store.dispatch("deleteMeState")
+    location.reload()
+    await this.$router.push({name: "login"})
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="you" v-if="dataFetched">
+  <div class="you" v-if="!loading">
     <div class="wrapper" v-if="auth.isAuthenticated()">
       <p class="title">Вам задали {{ serverData.length }} вопросов</p>
       <SingleQuestionnaire class="quest"
@@ -20,9 +20,9 @@ import LoadingContent from "@/components/exceptions/LoadingContent";
 import AuthorizationError from "@/components/exceptions/AuthorizationError";
 import SingleQuestionnaire from "@/components/SingleQuestionnaire";
 
-import axios from "axios";
-import urls from "@/utils/api";
 import auth from "@/utils/auth";
+
+const api = require("@/utils/api")
 
 export default {
   components: {
@@ -31,22 +31,13 @@ export default {
   data() {
     return {
       serverData: [],
-      dataFetched: false,
+      loading: true,
       auth
     }
   },
-  methods: {
-    setServerData(data) {
-      this.serverData = data
-      this.dataFetched = true
-    }
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      axios.get(urls.receivedQuestionnaires, auth.getCredentials())
-           .then(res => vm.setServerData(res.data))
-           .catch(err => console.log(err))
-    })
+  async created() {
+    this.serverData = await api.questionnairesToMe()
+    this.loading = false
   }
 }
 </script>
