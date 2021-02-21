@@ -1,6 +1,30 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import auth from "@/utils/auth";
 
+const User = {
+  template: `
+  <div>
+    <router-view></router-view>
+  </div>
+`
+}
+
+const Questionnaires = {
+  template: `
+  <div>
+    <router-view></router-view>
+  </div>
+`
+}
+
+const Answers = {
+  template: `
+  <div>
+    <router-view></router-view>
+  </div>
+`
+}
+
 const routes = [
   {
     path: '/',
@@ -9,7 +33,7 @@ const routes = [
   },
   {
     path: '/users/',
-    component: () => import('@/views/accounts/User'),
+    component: User,
     children: [
       {
         path: ':id', //Страница для просмотра информаций аккаунта
@@ -52,12 +76,12 @@ const routes = [
     meta: {
       requiresAuth: true
     },
-    component: () => import("@/views/forms/Questionnaires"),
+    component: Questionnaires,
     children: [
       {
         path: '',
         name: 'allques',
-        component: () => import("@/views/forms/AllQuestionnaires")
+        component: () => import("@/views/forms/Questionnaires")
       },
       {
         path: ':id/questions',
@@ -77,7 +101,7 @@ const routes = [
       {
         path: 'new', //Создать вопрос
         name: 'addques',
-        component: () => import("@/views/forms/CreateNewQuestionnaire")
+        component: () => import("@/views/forms/NewQuestionnaire")
       },
     ]
   },
@@ -86,12 +110,12 @@ const routes = [
     meta: {
       requiresAuth: true
     },
-    component: () => import("@/views/forms/Answers"),
+    component: Answers,
     children: [
       {
         path: ':id', //Посмотреть на ответы человека который ответил на твой тест
         name: 'look-answer-human',
-        component: () => import("@/views/forms/AllAnswers")
+        component: () => import("@/views/forms/Answers")
       },
       {
         path: 'my', // Мои ответы
