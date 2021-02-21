@@ -15,11 +15,11 @@
         </div>
       </div>
     </div>
-    <div v-else>
+    <template v-else>
       <button @click="$router.push({ name: 'signup' })" class="footer-btn">Зарегистрироваться</button>
       <button @click="$router.push({ name: 'login' })" class="footer-btn">Войти</button>
       <AuthorizationError></AuthorizationError>
-    </div>
+    </template>
   </footer>
 </template>
 

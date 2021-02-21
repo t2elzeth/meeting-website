@@ -6,10 +6,10 @@
         <button @click="$router.push({ name: 'account-detail',  params: {id: serverData.from_user.id }})" class="quest-acc-btn">
           {{ serverData.from_user.full_name }}
         </button>
-        <div v-for="answers in serverData.answers" :key="answers.question">
+        <template v-for="answers in serverData.answers" :key="answers.question">
           <span class="text">Вопрос: {{ answers.question }}</span>
           <p class="text">Ответ: {{ answers.answer }}</p>
-        </div>
+        </template>
       </div>
     </div>
     <div v-else>Content is loading</div>
