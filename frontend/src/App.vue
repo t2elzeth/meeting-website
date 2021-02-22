@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <div class="wrap">
-      <div class="main">
-        <Nav></Nav>
+<!--    <div class="wrap">-->
+<!--      <div class="main">-->
+<!--        <Nav></Nav>-->
         <router-view v-slot="{Component}">
           <transition name="content" appear>
             <component :is="Component"></component>
           </transition>
         </router-view>
-      </div>
-      <Footer></Footer>
-    </div>
+<!--      </div>-->
+<!--      <Footer></Footer>-->
+<!--    </div>-->
   </div>
 </template>
 

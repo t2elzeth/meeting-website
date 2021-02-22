@@ -16,6 +16,11 @@ const routes = [
     component: () => import("@/views/Home")
   },
   {
+    path: '/test',
+    name: 'test',
+    component: () => import("@/views/Test")
+  },
+  {
     path: '/users/',
     component: SimpleRouterViewComponent,
     children: [
