@@ -27,7 +27,6 @@ import LoadingContent from "@/components/exceptions/LoadingContent";
 
 
 const api = require("@/utils/api")
-const hello = require("@/views/forms/helloworld")
 
 export default {
   components: {
@@ -50,8 +49,6 @@ export default {
   async created() {
     this.serverData = await api.questionnaires(this.$route.meta.mode)
     this.loading = false
-
-    hello.printHello()
   }
 }
 </script>
