@@ -10,7 +10,7 @@
         <p class="quest-title">
           <strong>{{ questionnaire.title }}</strong>
           от
-          <strong>{{ questionnaire.owner?.full_name }}</strong>
+          <strong>{{ questionnaire.owner.full_name }}</strong>
         </p>
         <button @click="$router.push({name: 'questionnaire-questions', params: {id: questionnaire.id}})"
                 class="quest-btn">
