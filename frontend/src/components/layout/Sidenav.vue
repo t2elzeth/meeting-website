@@ -35,7 +35,7 @@ export default {
   },
   async mounted() {
     if (auth.isAuthenticated()) {
-      this.questionnaires = await api.getQuestionnairesList()
+      this.questionnaires = await api.questionnaires("all")
       this.loading = false
     }
   }

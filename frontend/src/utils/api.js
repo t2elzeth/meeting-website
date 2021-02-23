@@ -27,8 +27,14 @@ const urls = {
   addQues: getUrl("api/v1/forms/questionnaires/")
 };
 
-export async function getQuestionnairesList(params) {
-  return (await axios.get(urls.allQues, {...auth.getCredentials(), params: {...params}})).data
+export async function questionnaires(mode, params = {}) {
+  if (mode === "to-me") {
+    return (await axios.get(urls.receivedQuestionnaires, auth.getCredentials())).data
+  } else if (mode === "all") {
+    return (await axios.get(urls.allQues, {...auth.getCredentials(), params: {...params}})).data
+  } else if (mode === "my") {
+    return (await axios.get(urls.myQuestionnaires, auth.getCredentials())).data
+  }
 }
 
 export async function newQuestionnaire(data) {
@@ -45,14 +51,6 @@ export async function answersToMyQuestionnaires() {
 
 export async function myAnswers() {
   return (await axios.get(urls.myAnswers, auth.getCredentials())).data
-}
-
-export async function myQuestionnaires() {
-  return (await axios.get(urls.myQuestionnaires, auth.getCredentials())).data
-}
-
-export async function questionnairesToMe() {
-  return (await axios.get(urls.receivedQuestionnaires, auth.getCredentials())).data
 }
 
 export async function questions(id) {

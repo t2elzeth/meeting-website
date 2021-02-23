@@ -105,10 +105,10 @@ class CreateSendQuestionnaireSerializer(serializers.ModelSerializer):
 
 
 class SendQuestionnaireSerializer(serializers.ModelSerializer):
-    from_user = FromUserSerializer()
+    owner = FromUserSerializer(source="from_user")
     to_user = FromUserSerializer()
     questionnaire = QuestionnaireSerializer()
 
     class Meta:
         model = ReceivedQuestionnaire
-        fields = ["from_user", "to_user", "questionnaire"]
+        fields = ["owner", "to_user", "questionnaire"]

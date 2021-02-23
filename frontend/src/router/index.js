@@ -70,6 +70,10 @@ const routes = [
       {
         path: '',
         name: 'allques',
+        meta: {
+          mode: "all",
+          search: true
+        },
         component: () => import("@/views/forms/Questionnaires")
       },
       {
@@ -85,7 +89,10 @@ const routes = [
       {
         path: 'tome', //Вам задали
         name: 'ansyou',
-        component: () => import("@/views/forms/QuestionnairesToMe")
+        meta: {
+          mode: "to-me"
+        },
+        component: () => import("@/views/forms/Questionnaires")
       },
       {
         path: 'new', //Создать вопрос

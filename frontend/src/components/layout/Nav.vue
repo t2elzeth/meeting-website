@@ -48,7 +48,7 @@ export default {
       this.isOpen = !this.isOpen
 
       if (auth.isAuthenticated()) {
-        this.numberOfItems.myQuestionnaires = (await api.myQuestionnaires()).length
+        this.numberOfItems.myQuestionnaires = (await api.questionnaires("my")).length
         this.numberOfItems.receivedQuestionnaires = (await api.receivedQuestionnaires()).length
         this.numberOfItems.answersToMyQuestionnaires = (await api.answersToMyQuestionnaires()).length
         this.numberOfItems.myAnswers = (await api.myAnswers()).length

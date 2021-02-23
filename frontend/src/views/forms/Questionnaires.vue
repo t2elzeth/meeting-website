@@ -2,7 +2,7 @@
   <section class="questions">
     <div class="wrapper" v-if="!loading">
       <p class="title">Все анкеты</p>
-      <form action="" @submit.prevent="searchQuestionnaires">
+      <form action="" @submit.prevent="searchQuestionnaires" v-if="$route.meta.search">
         <input type="text" v-model="searchFormData.title" placeholder="Заголовок">
         <button>Поиск</button>
       </form>
@@ -10,7 +10,7 @@
         <p class="quest-title">
           <strong>{{ questionnaire.title }}</strong>
           от
-          <strong>{{ questionnaire.owner.full_name }}</strong>
+          <strong>{{ questionnaire.owner?.full_name }}</strong>
         </p>
         <button @click="$router.push({name: 'questionnaire-questions', params: {id: questionnaire.id}})"
                 class="quest-btn">
@@ -25,7 +25,9 @@
 <script>
 import LoadingContent from "@/components/exceptions/LoadingContent";
 
-import {getQuestionnairesList} from "@/utils/api";
+
+const api = require("@/utils/api")
+const hello = require("@/views/forms/helloworld")
 
 export default {
   components: {
@@ -42,12 +44,14 @@ export default {
   },
   methods: {
     async searchQuestionnaires() {
-      this.serverData = await getQuestionnairesList(this.searchFormData)
+      this.serverData = await api.questionnaires(this.$route.meta.mode, this.searchFormData)
     }
   },
   async created() {
-    this.serverData = await getQuestionnairesList()
+    this.serverData = await api.questionnaires(this.$route.meta.mode)
     this.loading = false
+
+    hello.printHello()
   }
 }
 </script>
