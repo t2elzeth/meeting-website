@@ -18,11 +18,6 @@ const routes = [
     component: () => import("@/views/Home")
   },
   {
-    path: '/test',
-    name: 'test',
-    component: () => import("@/components/layout/Sidenav")
-  },
-  {
     path: '/users/',
     component: SimpleRouterViewComponent,
     children: [
