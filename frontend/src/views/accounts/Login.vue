@@ -5,11 +5,8 @@
       <p class="title">Войти в аккаунт</p>
 
       <form class="form" action="" @submit.prevent="login">
-
         <input class="form-input" type="text" placeholder="Ваша почта" v-model="email" required>
-
         <input class="form-input" type="password" placeholder="Ваш пароль" v-model="password" required>
-
         <button class="form-btn" type="submit">Авторизоваться</button>
       </form>
     </div>
