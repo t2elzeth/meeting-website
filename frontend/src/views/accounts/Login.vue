@@ -1,7 +1,6 @@
 <template>
   <div class="autorize">
     <div class="wrapper">
-
       <p class="title">Войти в аккаунт</p>
 
       <form class="form" action="" @submit.prevent="login">
