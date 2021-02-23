@@ -7,13 +7,15 @@
 <script>
 const api = require("@/utils/api")
 
+import {success} from "@/utils/notifications";
+
 export default {
   name: "Logout",
-  async created() {
+  async mounted() {
     await api.logout()
     this.$store.dispatch("deleteMeState")
-    location.reload()
-    await this.$router.push({name: "login"})
+
+    success("Вы успешно вышли из аккаунта!").then(() => this.$router.push({name: "login"}))
   }
 }
 </script>

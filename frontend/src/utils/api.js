@@ -73,7 +73,7 @@ export async function login(data) {
 }
 
 export async function logout() {
-  await axios.post(urls.login, {}, auth.getCredentials())
+  await axios.post(urls.logout, {}, auth.getCredentials())
   auth.removeToken()
 }
 
@@ -81,12 +81,16 @@ export async function editAccount(data) {
   return (await axios.patch(urls.whoAmI, data, auth.getCredentials())).data
 }
 
+export async function whoAmI() {
+  return (await axios.get(urls.whoAmI, auth.getCredentials())).data
+}
+
 export async function signUp(data) {
   return (await axios.post(urls.signUp, data)).data
 }
 
 export async function answerToQuestionnaire(answers, questionnaireId) {
-  return (await axios.post(urls.ansQues(questionnaireId), {answers})).data
+  return (await axios.post(urls.ansQues(questionnaireId), {answers}, auth.getCredentials())).data
 }
 
 export async function receivedQuestionnaires() {

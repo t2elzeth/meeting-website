@@ -10,37 +10,49 @@
       </div>
       <button @click="isAnswering = !isAnswering">
         <span v-if="isAnswering">Отменить</span>
-        <span v-if="!isAnswering">Ответить</span>
+        <span v-else>Ответить</span>
       </button>
 
       <template v-if="!isAnswering">
-        <p v-for="question in serverData.questions" :key="question.question">
-          Вопрос: {{ question.question }}
-        </p>
+        <p v-for="(question, index) in serverData.questions" :key="index">Вопрос: {{ question.question }}</p>
       </template>
-      <AnswerToQuestionnaire v-else :server-data="serverData"></AnswerToQuestionnaire>
+      <form action="" class="form" @submit.prevent="answerToQuestionnaire" v-else>
+        <label v-for="question in serverData.questions" v-bind:key="question.question">
+          Вопрос: {{ question.question }}
+          <input type="text" :id="question.question" @change="updateAnswers" required>
+        </label>
+        <button class="form-btn">Ответить</button>
+      </form>
     </div>
     <loading-content v-else></loading-content>
   </div>
 </template>
 
 <script>
-import AnswerToQuestionnaire from "@/components/AnswerToQuestionnaire";
 import LoadingContent from "@/components/exceptions/LoadingContent";
+import {success} from "@/utils/notifications";
 
 const api = require("@/utils/api")
 
 export default {
-  components: {
-    LoadingContent,
-    AnswerToQuestionnaire
-  },
+  components: {LoadingContent},
   data() {
     return {
       serverData: {},
       loading: true,
-      isAnswering: false
+      isAnswering: false,
+      answers: {},
     }
+  },
+  methods: {
+    updateAnswers(answer) {
+      console.log(answer.target.value, answer.target.id)
+      this.answers[answer.target.id] = answer.target.value
+    },
+    async answerToQuestionnaire() {
+      await api.answerToQuestionnaire(Object.values(this.answers), this.serverData.id)
+      success("Вы успешно ответили на эту анкету").then(() => this.$router.push({name: 'myanswer'}))
+    },
   },
   async created() {
     this.serverData = await api.questions(this.$route.params.id)

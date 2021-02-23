@@ -19,6 +19,8 @@
 <script>
 const api = require("@/utils/api")
 
+import {success, error} from "@/utils/notifications";
+
 export default {
   data() {
     return {
@@ -28,9 +30,16 @@ export default {
   },
   methods: {
     async login() {
-      await api.login({email: this.email, password: this.password})
-      this.$store.dispatch("setMeState")
-      await this.$router.push({name: 'allques'})
+      api.login({email: this.email, password: this.password})
+         .then(() => {
+           this.$store.dispatch("setMeState")
+
+           success("Успешная авторизация!").then(() => this.$router.push({name: 'allques'}))
+         }).catch((err) => {
+        error("Что-то пошло не так. Попробуйте позже, или обратитесь в тех-поддержку")
+        console.log(err)
+      })
+
     }
   },
 }

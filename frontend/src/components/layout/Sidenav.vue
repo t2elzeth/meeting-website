@@ -1,11 +1,13 @@
 <template>
   <div class="sidenav">
-    <p class="sidenav-header">Список вопросов тут</p>
-    <dropdown @update:model-value="updateChecked"
-              v-for="questionnaire in questionnaires"
-              :key="questionnaire.id"
-              :questionnaire="questionnaire">
-    </dropdown>
+    <template v-if="!loading">
+      <p class="sidenav-header">Список вопросов тут</p>
+      <dropdown @update:model-value="updateChecked"
+                v-for="questionnaire in questionnaires"
+                :key="questionnaire.id"
+                :questionnaire="questionnaire">
+      </dropdown>
+    </template>
   </div>
 </template>
 
@@ -13,6 +15,7 @@
 import Dropdown from "@/components/Dropdown";
 
 const api = require("@/utils/api")
+import auth from "@/utils/auth";
 
 export default {
   name: "Test",
@@ -22,18 +25,19 @@ export default {
       checked: {},
       questionnaires: [],
       questions: [],
+      loading: true
     }
   },
   methods: {
-    async getQuestionnairesList() {
-      this.questionnaires = await api.getQuestionnairesList()
-    },
     updateChecked(value, id) {
       this.checked[id] = value
     }
   },
-  async created() {
-    await this.getQuestionnairesList()
+  async mounted() {
+    if (auth.isAuthenticated()) {
+      this.questionnaires = await api.getQuestionnairesList()
+      this.loading = false
+    }
   }
 }
 </script>

@@ -1,8 +1,6 @@
 import {createStore} from 'vuex'
 
-import axios from "axios";
-import auth from "@/utils/auth";
-import urls from "@/utils/api";
+const api = require("@/utils/api")
 
 export default createStore({
   state: {
@@ -17,10 +15,9 @@ export default createStore({
     }
   },
   actions: {
-    setMeState(state) {
-      axios.get(urls.whoAmI, auth.getCredentials())
-           .then(res => state.commit("setMeData", res.data))
-           .catch(err => console.log(err))
+    async setMeState(state) {
+      const res = await api.whoAmI()
+      state.commit("setMeData", res)
     },
     deleteMeState(state) {
       state.commit("deleteMeData")
