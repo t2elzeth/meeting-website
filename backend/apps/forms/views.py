@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 
 from .models import Questionnaire, AnswerSheet
-from .serializers import (CreateQuestionnaireSerializer, QuestionnaireSerializer, QuestionnaireDetailSerializer,
+from .serializers import (CreateQuestionnaireSerializer, QuestionnaireSerializer,
                           CreateAnswerSheetSerializer, AnswerSheetSerializer, CreateSendQuestionnaireSerializer,
                           SendQuestionnaireSerializer)
 from .mixins import SerializerClassByAction
@@ -21,7 +21,6 @@ class QuestionnaireViewSet(viewsets.ModelViewSet, SerializerClassByAction):
         "answer": CreateAnswerSheetSerializer,
         "answers": AnswerSheetSerializer,
         "create": CreateQuestionnaireSerializer,
-        "retrieve": QuestionnaireDetailSerializer,
         "send": CreateSendQuestionnaireSerializer,
         "received": SendQuestionnaireSerializer
     }
@@ -31,13 +30,12 @@ class QuestionnaireViewSet(viewsets.ModelViewSet, SerializerClassByAction):
             queryset = AnswerSheet.objects.filter(to_questionnaire=self.get_object(),
                                                   to_questionnaire__owner=self.request.user)
             return super().filter_queryset(queryset)
-        elif self.action == "retrieve":
-            return super().filter_queryset(queryset)
         elif self.action == "received":
             return self.request.user.received_questionnaires.all()
         elif self.action == "my":
             return self.request.user.questionnaires.all()
-        elif self.action == "send":
+        elif (self.action == "send" or
+              self.action == "retrieve"):
             return super().filter_queryset(queryset)
 
         queryset = queryset.exclude(owner=self.request.user)

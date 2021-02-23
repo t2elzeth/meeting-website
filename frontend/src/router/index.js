@@ -87,11 +87,6 @@ const routes = [
         component: Questionnaires
       },
       {
-        path: ':id/questions',
-        name: 'questionnaire-questions',
-        component: () => import("@/views/forms/Questions")
-      },
-      {
         path: 'tome', //Вам задали
         name: 'ansyou',
         meta: {
@@ -138,11 +133,6 @@ const routes = [
       requiresAuth: true
     },
     component: () => import("@/views/Support")
-  },
-  {
-    path: '/search', //Страница поиска
-    name: 'search',
-    component: () => import("@/views/accounts/SearchAccounts")
   },
   {
     path: '/:pathMatch(.*)*',

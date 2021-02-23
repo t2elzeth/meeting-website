@@ -33,20 +33,11 @@ class FromUserSerializer(serializers.ModelSerializer):
 
 class QuestionnaireSerializer(serializers.ModelSerializer):
     owner = FromUserSerializer()
-
-    class Meta:
-        model = Questionnaire
-        fields = ['id', 'owner', 'title']
-        read_only_fields = ['id', 'owner']
-
-
-class QuestionnaireDetailSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(source="questions.all", many=True)
-    owner = FromUserSerializer()
 
     class Meta:
         model = Questionnaire
-        fields = ['id', 'title', 'owner', 'questions']
+        fields = ['id', 'owner', 'title', 'questions']
         read_only_fields = ['id', 'owner', 'questions']
 
 

@@ -12,10 +12,7 @@
           от
           <strong>{{ questionnaire.owner.full_name }}</strong>
         </p>
-        <button @click="$router.push({name: 'questionnaire-questions', params: {id: questionnaire.id}})"
-                class="quest-btn">
-          Перейти
-        </button>
+        <questions :questions="questionnaire.questions"></questions>
       </template>
     </div>
     <LoadingContent v-else></LoadingContent>
@@ -24,13 +21,14 @@
 
 <script>
 import LoadingContent from "@/components/exceptions/LoadingContent";
+import Questions from "@/views/forms/Questions";
 
 
 const api = require("@/utils/api")
 
 export default {
   components: {
-    LoadingContent
+    LoadingContent, Questions
   },
   data() {
     return {
