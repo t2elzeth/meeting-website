@@ -6,26 +6,30 @@
         <input type="text" v-model="searchFormData.title" placeholder="Заголовок">
         <button>Поиск</button>
       </form>
-      <SingleQuestionnaire
-          v-for="item in serverData"
-          :key="item.id"
-          class="quest"
-          :questionnaire="item">
-      </SingleQuestionnaire>
+      <template v-for="questionnaire in serverData" :key="questionnaire.id">
+        <p class="quest-title">
+          <strong>{{ questionnaire.title }}</strong>
+          от
+          <strong>{{ questionnaire.owner.full_name }}</strong>
+        </p>
+        <button @click="$router.push({name: 'questionnaire-questions', params: {id: questionnaire.id}})"
+                class="quest-btn">
+          Перейти
+        </button>
+      </template>
     </div>
     <LoadingContent v-else></LoadingContent>
   </section>
 </template>
 
 <script>
-import SingleQuestionnaire from "@/components/SingleQuestionnaire";
 import LoadingContent from "@/components/exceptions/LoadingContent";
 
 import {getQuestionnairesList} from "@/utils/api";
 
 export default {
   components: {
-    SingleQuestionnaire, LoadingContent
+    LoadingContent
   },
   data() {
     return {

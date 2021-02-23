@@ -37,6 +37,8 @@ class QuestionnaireViewSet(viewsets.ModelViewSet, SerializerClassByAction):
             return self.request.user.received_questionnaires.all()
         elif self.action == "my":
             return self.request.user.questionnaires.all()
+        elif self.action == "send":
+            return super().filter_queryset(queryset)
 
         queryset = queryset.exclude(owner=self.request.user)
         return super().filter_queryset(queryset)

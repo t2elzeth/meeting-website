@@ -1,38 +1,36 @@
 <template>
   <div class="you" v-if="!loading">
-    <div class="wrapper" v-if="auth.isAuthenticated()">
+    <div class="wrapper">
       <p class="title">Вам задали {{ serverData.length }} вопросов</p>
-      <SingleQuestionnaire class="quest"
-                           v-for="received in serverData"
-                           :key="received.id"
-                           :questionnaire="received"
-                           user-key="from_user"
-                           questionnaire-key="questionnaire">
-      </SingleQuestionnaire>
+      <template v-for="questionnaire in serverData" :key="questionnaire.id">
+        <p class="quest-title">
+          <strong>{{ questionnaire.questionnaire.title }}</strong>
+          от
+          <strong>{{ questionnaire.from_user.full_name }}</strong>
+        </p>
+        <button @click="$router.push({name: 'questionnaire-questions', params: {id: questionnaire.questionnaire.id}})"
+                class="quest-btn">
+          Перейти
+        </button>
+      </template>
     </div>
-    <AuthorizationError v-else></AuthorizationError>
   </div>
   <LoadingContent v-else></LoadingContent>
 </template>
 
 <script>
 import LoadingContent from "@/components/exceptions/LoadingContent";
-import AuthorizationError from "@/components/exceptions/AuthorizationError";
-import SingleQuestionnaire from "@/components/SingleQuestionnaire";
-
-import auth from "@/utils/auth";
 
 const api = require("@/utils/api")
 
 export default {
   components: {
-    AuthorizationError, LoadingContent, SingleQuestionnaire
+    LoadingContent
   },
   data() {
     return {
       serverData: [],
-      loading: true,
-      auth
+      loading: true
     }
   },
   async created() {

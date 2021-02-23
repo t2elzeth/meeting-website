@@ -1,7 +1,7 @@
 import axios from "axios";
-import auth from "@/utils/auth";
 
 const urljoin = require("url-join");
+const auth = require("./auth").default
 
 export const apiServer = "http://127.0.0.1:8001/";
 
