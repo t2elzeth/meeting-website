@@ -1,13 +1,13 @@
 <template>
   <div class="look">
     <div class="wrapper" v-if="!loading">
-      <div class="quest-acc-title title">
-        <p class="quest-acc-title-info title">Посмотреть ответы на {{ serverData.to_questionnaire.title }} от</p>
-        <button @click="$router.push({ name: 'account-detail',  params: {id: serverData.from_user.id }})"
+      <div class="quest-acc-title title" v-for="item in serverData" :key="item.id">
+        <p class="quest-acc-title-info title">Посмотреть ответы на {{ item.to_questionnaire.title }} от</p>
+        <button @click="$router.push({ name: 'account-detail',  params: {id: item.from_user.id }})"
                 class="quest-acc-btn">
-          {{ serverData.from_user.full_name }}
+          {{ item.from_user.full_name }}
         </button>
-        <template v-for="answers in serverData.answers" :key="answers.question">
+        <template v-for="answers in item.answers" :key="answers.question">
           <span class="text">Вопрос: {{ answers.question }}</span>
           <p class="text">Ответ: {{ answers.answer }}</p>
         </template>
@@ -28,7 +28,7 @@ export default {
     }
   },
   async created() {
-    this.serverData = await api.answerDetail(this.$route.params.id)
+    this.serverData = await api.answers(this.$route.meta.mode)
     this.loading = false
   }
 }

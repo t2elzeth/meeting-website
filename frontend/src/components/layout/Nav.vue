@@ -50,8 +50,8 @@ export default {
       if (auth.isAuthenticated()) {
         this.numberOfItems.myQuestionnaires = (await api.questionnaires("my")).length
         this.numberOfItems.receivedQuestionnaires = (await api.receivedQuestionnaires()).length
-        this.numberOfItems.answersToMyQuestionnaires = (await api.answersToMyQuestionnaires()).length
-        this.numberOfItems.myAnswers = (await api.myAnswers()).length
+        this.numberOfItems.answersToMyQuestionnaires = (await api.answers("to-me")).length
+        this.numberOfItems.myAnswers = (await api.answers("my")).length
       }
     }
   },

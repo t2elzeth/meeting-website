@@ -41,16 +41,12 @@ export async function newQuestionnaire(data) {
   await axios.post(urls.addQues, data, auth.getCredentials())
 }
 
-export async function answerDetail(id) {
-  return (await axios.get(urls.answerDetail(id), auth.getCredentials())).data
-}
-
-export async function answersToMyQuestionnaires() {
-  return (await axios.get(urls.answersToMyQuestionnaires, auth.getCredentials())).data
-}
-
-export async function myAnswers() {
-  return (await axios.get(urls.myAnswers, auth.getCredentials())).data
+export async function answers(mode) {
+  if (mode === "to-me") {
+    return (await axios.get(urls.answersToMyQuestionnaires, auth.getCredentials())).data
+  } else if (mode === "my") {
+    return (await axios.get(urls.myAnswers, auth.getCredentials())).data
+  }
 }
 
 export async function questions(id) {

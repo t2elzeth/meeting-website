@@ -77,14 +77,17 @@ const routes = [
         component: () => import("@/views/forms/Questionnaires")
       },
       {
+        path: 'my',
+        name: 'myques',
+        meta: {
+          mode: "my"
+        },
+        component: () => import('@/views/forms/Questionnaires')
+      },
+      {
         path: ':id/questions',
         name: 'questionnaire-questions',
         component: () => import("@/views/forms/Questions")
-      },
-      {
-        path: 'my',
-        name: 'myques',
-        component: () => import('@/views/forms/MyQuestionnaires')
       },
       {
         path: 'tome', //Вам задали
@@ -109,19 +112,20 @@ const routes = [
     component: SimpleRouterViewComponent,
     children: [
       {
-        path: ':id', //Посмотреть на ответы человека который ответил на твой тест
-        name: 'look-answer-human',
-        component: () => import("@/views/forms/Answers")
-      },
-      {
         path: 'my', // Мои ответы
         name: 'myanswer',
-        component: () => import("@/views/forms/MyAnswers")
+        meta: {
+          mode: "my"
+        },
+        component: () => import("@/views/forms/Answers")
       },
       {
         path: 'tome', //Вам ответили
         name: 'askyou',
-        component: () => import("@/views/forms/AnswersToMe")
+        meta: {
+          mode: "to-me"
+        },
+        component: () => import("@/views/forms/Answers")
       },
     ]
   },
