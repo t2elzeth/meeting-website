@@ -18,7 +18,7 @@ const routes = [
   {
     path: '/test',
     name: 'test',
-    component: () => import("@/views/Test")
+    component: () => import("@/components/layout/Sidenav")
   },
   {
     path: '/users/',

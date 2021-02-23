@@ -59,6 +59,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../assets/styles/vars";
 
 .nav {
   display: flex;
@@ -105,6 +106,7 @@ export default {
   }
 
   &__sub-menu {
+    width: $sidebar-width;
     position: fixed;
     left: 0;
     top: 0;
@@ -115,7 +117,7 @@ export default {
     justify-content: space-around;
     align-items: flex-start;
     height: 100vh;
-    padding: 0px 25px 0 30px;
+    padding: 0 25px 0 30px;
     background-color: #000;
   }
 
@@ -138,7 +140,6 @@ export default {
     }
   }
 }
-
 
 .fade-enter-active {
   animation: moveOut .3s;

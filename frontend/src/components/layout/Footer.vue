@@ -41,26 +41,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../assets/styles/vars";
+
+@mixin hover {
+  &:hover {
+    background-color: #000;
+    color: #fff;
+  }
+}
 
 .footer {
-  position: relative;
-  width: 100%;
+  position: fixed;
+  width: calc(100% - #{$sidebar-width});
   bottom: 0;
+  right: 0;
   background-color: #000;
   padding: 10px 0;
-  margin-top: 50px;
-  flex: 0 0 auto;
 
   &-content {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-  }
-
-  &-account {
-    // display: flex;
-    display: none;
-    flex-direction: column;
   }
 
   &-btn {
@@ -73,10 +74,7 @@ export default {
     cursor: pointer;
     transition: all .4s;
 
-    &:hover {
-      background-color: #000;
-      color: #fff;
-    }
+    @include hover
   }
 
   &-settings {
@@ -115,7 +113,7 @@ export default {
 }
 
 .add-button {
-  border: none;
+  border: 1px solid #fff;
   outline: none;
   color: rgb(36, 36, 36);
   padding: 5px 10px 5px 0;
@@ -123,9 +121,7 @@ export default {
   cursor: pointer;
   transition: all 0.3s;
 
-  &:hover {
-    color: rgb(133, 133, 133);
-  }
+  @include hover
 }
 
 </style>

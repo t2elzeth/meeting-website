@@ -4,7 +4,7 @@
 
       <p class="title">Войти в аккаунт</p>
 
-      <form class="form" action="" @submit.prevent="submitForm">
+      <form class="form" action="" @submit.prevent="login">
 
         <input class="form-input" type="text" placeholder="Ваша почта" v-model="email" required>
 
@@ -27,7 +27,7 @@ export default {
     }
   },
   methods: {
-    async submitForm() {
+    async login() {
       await api.login({email: this.email, password: this.password})
       this.$store.dispatch("setMeState")
       await this.$router.push({name: 'allques'})

@@ -1,16 +1,11 @@
 <template>
   <div id="app">
-<!--    <div class="wrap">-->
-<!--      <div class="main">-->
-<!--        <Nav></Nav>-->
-        <router-view v-slot="{Component}">
-          <transition name="content" appear>
-            <component :is="Component"></component>
-          </transition>
-        </router-view>
-<!--      </div>-->
-<!--      <Footer></Footer>-->
-<!--    </div>-->
+    <component :is="layout">
+      <router-view>
+        <transition name="content" appear>
+        </transition>
+      </router-view>
+    </component>
   </div>
 </template>
 
@@ -18,16 +13,24 @@
 import Nav from './components/layout/Nav'
 import Footer from './components/layout/Footer'
 
+const defaultLayout = "default-layout";
+
 export default {
   name: 'App',
   components: {
     Nav,
     Footer
+  },
+  data() {
+    return {
+      layout: this.$route.meta.layout || defaultLayout
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
 
 .content-enter-active {
   animation: animationIn .1s;
