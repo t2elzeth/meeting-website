@@ -1,6 +1,8 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import auth from "@/utils/auth";
 
+import Questionnaires from "@/views/forms/Questionnaires";
+
 const SimpleRouterViewComponent = {
   template: `
   <div>
@@ -74,7 +76,7 @@ const routes = [
           mode: "all",
           search: true
         },
-        component: () => import("@/views/forms/Questionnaires")
+        component: Questionnaires
       },
       {
         path: 'my',
@@ -82,7 +84,7 @@ const routes = [
         meta: {
           mode: "my"
         },
-        component: () => import('@/views/forms/Questionnaires')
+        component: Questionnaires
       },
       {
         path: ':id/questions',
@@ -95,7 +97,7 @@ const routes = [
         meta: {
           mode: "to-me"
         },
-        component: () => import("@/views/forms/Questionnaires")
+        component: Questionnaires
       },
       {
         path: 'new', //Создать вопрос
