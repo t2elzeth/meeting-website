@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="isOpen = true">Открыть</button>
+    <button @click="isOpen = true" class="open-btn">Открыть</button>
 
     <transition name="modal" v-if="isOpen">
       <div class="modal-mask">
@@ -26,7 +26,7 @@
                       <input type="text" :id="question.question" @change="updateAnswers" required>
                     </template>
                   </label>
-                  <button class="form-btn" v-if="isAnswering">Отправить ответы</button>
+                  <button class="btn" v-if="isAnswering">Отправить ответы</button>
                 </form>
 
               </template>
@@ -175,21 +175,29 @@ export default {
     margin: 10px 0;
   }
 
-  &-btn {
-    background-color: #1fd51f;
-    border: 1px solid #fff;
-    color: #fff;
-    outline: none;
-    margin-top: 10px;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: all .4s;
 
-    &:hover {
-      background-color: #000;
-      color: #fff;
-      border-color: #fff;
-    }
+}
+
+.btn {
+  border: 1px solid #fff;
+  color: #fff;
+  outline: none;
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all .4s;
+
+  &:hover {
+    background-color: #000;
+    color: #fff;
+    border-color: white;
   }
+}
+
+.open-btn {
+  @extend .btn;
+  background: white;
+  color: black;
+  border-color: black;
 }
 </style>
