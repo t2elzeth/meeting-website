@@ -6,20 +6,20 @@
       <div class="modal-mask">
         <div class="modal-wrapper">
           <div class="modal-container">
-
+            <button class="closebtn" @click="isOpen = false"></button>
             <div class="modal-header">
               Название:
               <slot></slot>
             </div>
 
             <div class="modal-body">
-              <button @click="isAnswering = !isAnswering">
-                <span v-if="isAnswering">Отменить</span>
-                <span v-else>Я хочу ответить</span>
-              </button>
+              <template v-if="questions.length > 0">
 
-              <form action="" class="form" @submit.prevent="answerToQuestionnaire">
-                <template v-if="questions.length > 0">
+                <button @click="isAnswering = !isAnswering">
+                  <span v-if="isAnswering">Отменить</span>
+                  <span v-else>Я хочу ответить</span>
+                </button>
+                <form action="" class="form" @submit.prevent="answerToQuestionnaire">
                   <label v-for="question in questions" v-bind:key="question.question">
                     Вопрос: {{ question.question }}
                     <template v-if="isAnswering">
@@ -27,16 +27,12 @@
                     </template>
                   </label>
                   <button class="form-btn" v-if="isAnswering">Отправить ответы</button>
-                </template>
+                </form>
 
-                <template v-else>
-                  <p>Nothing to show here</p>
-                </template>
-              </form>
-            </div>
-
-            <div class="modal-footer">
-              <button class="modal-default-button" @click="isOpen = false">OK</button>
+              </template>
+              <template v-else>
+                <p>Nothing to show here</p>
+              </template>
             </div>
           </div>
         </div>
@@ -103,6 +99,33 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
+  position: relative;
+
+  .closebtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    width: 30px;
+    height: 30px;
+    background: white;
+    cursor: pointer;
+
+    &:after {
+      display: inline-block;
+      content: "\00d7";
+      color: black;
+    }
+
+    &:hover {
+      transition: .65s;
+      background: black;
+
+      &:after {
+        color: white;
+      }
+    }
+  }
 }
 
 .modal-header h3 {
@@ -130,12 +153,6 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
-}
-
-.modal-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .form {

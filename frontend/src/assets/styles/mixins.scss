@@ -1,4 +1,4 @@
-@mixin onHover($transition: .65s, $background: #0d7ad0) {
+@mixin onHover($transition: .65s, $background: #0d7ad0, $color: white) {
   &:hover {
     transition: $transition;
     background: $background;
