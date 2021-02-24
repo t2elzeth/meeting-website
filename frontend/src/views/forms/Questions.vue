@@ -18,25 +18,25 @@
                 <span v-else>Я хочу ответить</span>
               </button>
 
-
               <form action="" class="form" @submit.prevent="answerToQuestionnaire">
+                <template v-if="questions.length > 0">
+                  <label v-for="question in questions" v-bind:key="question.question">
+                    Вопрос: {{ question.question }}
+                    <template v-if="isAnswering">
+                      <input type="text" :id="question.question" @change="updateAnswers" required>
+                    </template>
+                  </label>
+                  <button class="form-btn" v-if="isAnswering">Отправить ответы</button>
+                </template>
 
-                <label v-for="question in questions" v-bind:key="question.question">
-                  Вопрос: {{ question.question }}
-
-                  <template v-if="isAnswering">
-                    <input type="text" :id="question.question" @change="updateAnswers" required>
-                  </template>
-                </label>
-
-                <button class="form-btn" v-if="isAnswering">Отправить ответы</button>
+                <template v-else>
+                  <p>Nothing to show here</p>
+                </template>
               </form>
             </div>
 
             <div class="modal-footer">
-              <button class="modal-default-button" @click="isOpen = false">
-                OK
-              </button>
+              <button class="modal-default-button" @click="isOpen = false">OK</button>
             </div>
           </div>
         </div>
