@@ -25,14 +25,14 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = ["question"]
 
 
-class FromUserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "email", "full_name"]
 
 
 class QuestionnaireSerializer(serializers.ModelSerializer):
-    owner = FromUserSerializer()
+    owner = UserSerializer()
     questions = QuestionSerializer(source="questions.all", many=True)
 
     class Meta:
@@ -49,13 +49,10 @@ class ToQuestionnaireSerializer(serializers.ModelSerializer):
 
 class CreateAnswerSheetSerializer(serializers.ModelSerializer):
     answers = serializers.ListField(child=serializers.CharField(), write_only=True)
-    from_user = FromUserSerializer(read_only=True)
-    to_questionnaire = ToQuestionnaireSerializer(read_only=True)
 
     class Meta:
         model = AnswerSheet
-        fields = ['id', 'from_user', 'to_questionnaire', 'answers']
-        read_only_fields = ['id']
+        fields = ['answers']
 
     def validate_answers(self, value):
         questions = self.context["view"].get_object().questions.all()
@@ -78,7 +75,7 @@ class AnswerSerializer(serializers.ModelSerializer):
 
 
 class AnswerSheetSerializer(serializers.ModelSerializer):
-    from_user = FromUserSerializer()
+    from_user = UserSerializer()
 
     answers = AnswerSerializer(source="answers.all", many=True)
     to_questionnaire = ToQuestionnaireSerializer()
@@ -96,8 +93,8 @@ class CreateSendQuestionnaireSerializer(serializers.ModelSerializer):
 
 
 class SendQuestionnaireSerializer(serializers.ModelSerializer):
-    owner = FromUserSerializer(source="from_user")
-    to_user = FromUserSerializer()
+    owner = UserSerializer(source="from_user")
+    to_user = UserSerializer()
     questionnaire = QuestionnaireSerializer()
 
     class Meta:

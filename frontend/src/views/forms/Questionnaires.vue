@@ -12,7 +12,7 @@
           от
           <strong>{{ questionnaire.owner.full_name }}</strong>
         </p>
-        <questions :questions="questionnaire.questions"></questions>
+        <questions :questions="questionnaire.questions">{{ questionnaire.title }}</questions>
       </template>
     </div>
     <LoadingContent v-else></LoadingContent>

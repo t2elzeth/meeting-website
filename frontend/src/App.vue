@@ -31,7 +31,6 @@ export default {
 
 <style lang="scss" scoped>
 
-
 .content-enter-active {
   animation: animationIn .1s;
   animation-delay: .2s;
