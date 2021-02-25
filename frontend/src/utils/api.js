@@ -28,6 +28,8 @@ const urls = {
 };
 
 export async function questionnaires(mode, params = {}) {
+  if (!auth.isAuthenticated()) return []
+
   if (mode === "to-me") {
     return (await axios.get(urls.receivedQuestionnaires, auth.getCredentials())).data
   } else if (mode === "all") {
@@ -42,6 +44,8 @@ export async function newQuestionnaire(data) {
 }
 
 export async function answers(mode) {
+  if (!auth.isAuthenticated()) return []
+
   if (mode === "to-me") {
     return (await axios.get(urls.answersToMyQuestionnaires, auth.getCredentials())).data
   } else if (mode === "my") {
@@ -50,10 +54,14 @@ export async function answers(mode) {
 }
 
 export async function questions(id) {
+  if (!auth.isAuthenticated()) return []
+
   return (await axios.get(urls.quesionnairyDetail(id), auth.getCredentials())).data
 }
 
 export async function userDetail(id) {
+  if (!auth.isAuthenticated()) return {}
+
   return (await axios.get(urls.userDetail(id), auth.getCredentials())).data
 }
 
@@ -76,6 +84,8 @@ export async function editAccount(data) {
 }
 
 export async function whoAmI() {
+  if (!auth.isAuthenticated()) return {}
+
   return (await axios.get(urls.whoAmI, auth.getCredentials())).data
 }
 
@@ -84,9 +94,13 @@ export async function signUp(data) {
 }
 
 export async function answerToQuestionnaire(answers, questionnaireId) {
+  if (!auth.isAuthenticated()) return {}
+
   return (await axios.post(urls.ansQues(questionnaireId), {answers}, auth.getCredentials())).data
 }
 
 export async function receivedQuestionnaires() {
+  if (!auth.isAuthenticated()) return []
+
   return (await axios.get(urls.receivedQuestionnaires, auth.getCredentials())).data
 }

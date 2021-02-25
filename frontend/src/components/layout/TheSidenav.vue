@@ -2,24 +2,24 @@
   <div class="sidenav">
     <template v-if="!loading">
       <p class="sidenav-header">Список вопросов тут</p>
-      <dropdown @update:model-value="updateChecked"
-                v-for="questionnaire in questionnaires"
-                :key="questionnaire.id"
-                :questionnaire="questionnaire">
-      </dropdown>
+      <QuestionnaireDropdown @update:model-value="updateChecked"
+                             v-for="questionnaire in questionnaires"
+                             :key="questionnaire.id"
+                             :questionnaire="questionnaire">
+      </QuestionnaireDropdown>
     </template>
   </div>
 </template>
 
 <script>
-import Dropdown from "@/components/Dropdown";
+import QuestionnaireDropdown from "@/components/QuestionnaireDropdown";
 
 const api = require("@/utils/api")
 import auth from "@/utils/auth";
 
 export default {
   name: "Test",
-  components: {Dropdown},
+  components: {QuestionnaireDropdown},
   data() {
     return {
       checked: {},
