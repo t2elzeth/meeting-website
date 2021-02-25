@@ -15,7 +15,6 @@
 import QuestionnaireDropdown from "@/components/QuestionnaireDropdown";
 
 const api = require("@/utils/api")
-import auth from "@/utils/auth";
 
 export default {
   name: "Test",
@@ -34,10 +33,8 @@ export default {
     }
   },
   async mounted() {
-    if (auth.isAuthenticated()) {
-      this.questionnaires = await api.questionnaires("all")
-      this.loading = false
-    }
+    this.questionnaires = await api.questionnaires("all")
+    this.loading = false
   }
 }
 </script>

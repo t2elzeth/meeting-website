@@ -29,8 +29,6 @@
 <script>
 const api = require("@/utils/api")
 
-import auth from "@/utils/auth";
-
 export default {
   data() {
     return {
@@ -47,12 +45,10 @@ export default {
     async toggleNavbar() {
       this.isOpen = !this.isOpen
 
-      if (auth.isAuthenticated()) {
-        this.numberOfItems.myQuestionnaires = (await api.questionnaires("my")).length
-        this.numberOfItems.receivedQuestionnaires = (await api.receivedQuestionnaires()).length
-        this.numberOfItems.answersToMyQuestionnaires = (await api.answers("to-me")).length
-        this.numberOfItems.myAnswers = (await api.answers("my")).length
-      }
+      this.numberOfItems.myQuestionnaires = (await api.questionnaires("my")).length
+      this.numberOfItems.receivedQuestionnaires = (await api.receivedQuestionnaires()).length
+      this.numberOfItems.answersToMyQuestionnaires = (await api.answers("to-me")).length
+      this.numberOfItems.myAnswers = (await api.answers("my")).length
     }
   },
 }
