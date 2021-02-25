@@ -23,7 +23,7 @@
 
 <script>
 import LoadingContent from "@/components/exceptions/LoadingContent";
-import QuestionnaireQuestionsModal from "@/views/forms/QuestionnaireQuestionsModal";
+import QuestionnaireQuestionsModal from "@/components/QuestionnaireQuestionsModal";
 
 
 const api = require("@/utils/api")
