@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import auth from "@/utils/auth";
 
-import Questionnaires from "@/views/forms/Questionnaires";
+import Questionnaires from "@/views/forms/QuestionnairesList";
 
 const SimpleRouterViewComponent = {
   template: `
@@ -92,7 +92,7 @@ const routes = [
       {
         path: 'new', //Создать вопрос
         name: 'addques',
-        component: () => import("@/views/forms/NewQuestionnaire")
+        component: () => import("@/views/forms/QuestionnaireCreate")
       },
     ]
   },
@@ -109,7 +109,7 @@ const routes = [
         meta: {
           mode: "my"
         },
-        component: () => import("@/views/forms/Answers")
+        component: () => import("@/views/forms/QuestionnaireAnswers")
       },
       {
         path: 'tome', //Вам ответили
@@ -117,7 +117,7 @@ const routes = [
         meta: {
           mode: "to-me"
         },
-        component: () => import("@/views/forms/Answers")
+        component: () => import("@/views/forms/QuestionnaireAnswers")
       },
     ]
   },

@@ -47,7 +47,7 @@ import {success} from "@/utils/notifications";
 const api = require("@/utils/api")
 
 export default {
-  name: "Modal",
+  name: "QuestionnaireQuestionsModal",
   props: {
     title: String,
     questions: Array

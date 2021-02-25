@@ -6,13 +6,15 @@
         <input type="text" v-model="searchFormData.title" placeholder="Заголовок">
         <button>Поиск</button>
       </form>
-      <template v-for="questionnaire in serverData" :key="questionnaire.id">
+      <template v-for="questionnaire in questionnairesList" :key="questionnaire.id">
         <p class="quest-title">
           <strong>{{ questionnaire.title }}</strong>
           от
           <strong>{{ questionnaire.owner.full_name }}</strong>
         </p>
-        <questions :questions="questionnaire.questions">{{ questionnaire.title }}</questions>
+        <QuestionnaireQuestionsModal :questions="questionnaire.questions">
+          {{ questionnaire.title }}
+        </QuestionnaireQuestionsModal>
       </template>
     </div>
     <LoadingContent v-else></LoadingContent>
@@ -21,18 +23,18 @@
 
 <script>
 import LoadingContent from "@/components/exceptions/LoadingContent";
-import Questions from "@/views/forms/Questions";
+import QuestionnaireQuestionsModal from "@/views/forms/QuestionnaireQuestionsModal";
 
 
 const api = require("@/utils/api")
 
 export default {
   components: {
-    LoadingContent, Questions
+    LoadingContent, QuestionnaireQuestionsModal
   },
   data() {
     return {
-      serverData: {},
+      questionnairesList: {},
       loading: true,
       searchFormData: {
         title: ""
@@ -41,11 +43,11 @@ export default {
   },
   methods: {
     async searchQuestionnaires() {
-      this.serverData = await api.questionnaires(this.$route.meta.mode, this.searchFormData)
+      this.questionnairesList = await api.questionnaires(this.$route.meta.mode, this.searchFormData)
     }
   },
   async created() {
-    this.serverData = await api.questionnaires(this.$route.meta.mode)
+    this.questionnairesList = await api.questionnaires(this.$route.meta.mode)
     this.loading = false
   }
 }
