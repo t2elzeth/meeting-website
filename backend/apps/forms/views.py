@@ -19,16 +19,13 @@ class QuestionnaireViewSet(viewsets.ModelViewSet, SerializerClassByActionMixin):
     filterset_class = QuestionnaireFilter
     serializer_class_by_action = {
         "answer": CreateAnswerSheetSerializer,
-        "answers": AnswerSheetSerializer,
         "create": CreateQuestionnaireSerializer,
         "send": CreateSendQuestionnaireSerializer,
         "received": SendQuestionnaireSerializer
     }
 
     def filter_queryset(self, queryset):
-        if self.action == "answers":
-            return self.get_object().answer_sheets.filter(to_questionnaire__owner=self.request.user)
-        elif self.action == "received":
+        if self.action == "received":
             return self.request.user.received_questionnaires.all()
         elif self.action == "my":
             return self.request.user.questionnaires.all()
@@ -57,10 +54,6 @@ class QuestionnaireViewSet(viewsets.ModelViewSet, SerializerClassByActionMixin):
     @action(methods=['post'], detail=True)
     def answer(self, request, pk=None):
         return self.create(request, pk)
-
-    @action(methods=['get'], detail=True)
-    def answers(self, request, pk=None):
-        return self.list(request, pk)
 
     @action(methods=["post"], detail=True)
     def send(self, request, pk):
