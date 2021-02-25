@@ -6,13 +6,13 @@ from .models import Questionnaire, AnswerSheet
 from .serializers import (CreateQuestionnaireSerializer, QuestionnaireSerializer,
                           CreateAnswerSheetSerializer, AnswerSheetSerializer, CreateSendQuestionnaireSerializer,
                           SendQuestionnaireSerializer)
-from .mixins import SerializerClassByAction
+from .mixins import SerializerClassByActionMixin
 from .filters import QuestionnaireFilter
 
 from rest_framework.permissions import IsAuthenticated
 
 
-class QuestionnaireViewSet(viewsets.ModelViewSet, SerializerClassByAction):
+class QuestionnaireViewSet(viewsets.ModelViewSet, SerializerClassByActionMixin):
     serializer_class = QuestionnaireSerializer
     queryset = Questionnaire.objects.all()
     permission_classes = [IsAuthenticated]
@@ -27,23 +27,16 @@ class QuestionnaireViewSet(viewsets.ModelViewSet, SerializerClassByAction):
 
     def filter_queryset(self, queryset):
         if self.action == "answers":
-            queryset = AnswerSheet.objects.filter(to_questionnaire=self.get_object(),
-                                                  to_questionnaire__owner=self.request.user)
-            return super().filter_queryset(queryset)
+            return self.get_object().answer_sheets.filter(to_questionnaire__owner=self.request.user)
         elif self.action == "received":
             return self.request.user.received_questionnaires.all()
         elif self.action == "my":
             return self.request.user.questionnaires.all()
-        elif (self.action == "send" or
-              self.action == "retrieve"):
+        elif self.action in ["send", "retrieve"]:
             return super().filter_queryset(queryset)
 
         queryset = queryset.exclude(owner=self.request.user)
         return super().filter_queryset(queryset)
-
-    @action(methods=['post'], detail=True)
-    def answer(self, request, pk=None):
-        return self.create(request, pk)
 
     def perform_create(self, serializer):
         if self.action == "answer":
@@ -60,6 +53,10 @@ class QuestionnaireViewSet(viewsets.ModelViewSet, SerializerClassByAction):
             serializer.save(from_user=self.request.user, questionnaire=self.get_object())
         else:
             super().perform_create(serializer)
+
+    @action(methods=['post'], detail=True)
+    def answer(self, request, pk=None):
+        return self.create(request, pk)
 
     @action(methods=['get'], detail=True)
     def answers(self, request, pk=None):
@@ -78,7 +75,7 @@ class QuestionnaireViewSet(viewsets.ModelViewSet, SerializerClassByAction):
         return self.list(request)
 
 
-class AnswerSheetViewSet(viewsets.ModelViewSet, SerializerClassByAction):
+class AnswerSheetViewSet(viewsets.ModelViewSet, SerializerClassByActionMixin):
     serializer_class = AnswerSheetSerializer
     queryset = AnswerSheet.objects.all()
     # permission_classes = [IsAuthenticated]

@@ -33,7 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class QuestionnaireSerializer(serializers.ModelSerializer):
     owner = UserSerializer()
-    questions = QuestionSerializer(source="questions.all", many=True)
+    questions = QuestionSerializer(many=True)
 
     class Meta:
         model = Questionnaire
@@ -77,7 +77,7 @@ class AnswerSerializer(serializers.ModelSerializer):
 class AnswerSheetSerializer(serializers.ModelSerializer):
     from_user = UserSerializer()
 
-    answers = AnswerSerializer(source="answers.all", many=True)
+    answers = AnswerSerializer(many=True)
     to_questionnaire = ToQuestionnaireSerializer()
 
     class Meta:

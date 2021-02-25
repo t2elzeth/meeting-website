@@ -4,10 +4,10 @@ from rest_framework.permissions import IsAuthenticated
 
 from .models import Ticket
 from .serializers import TicketSerializer, TicketMessageSerializer, TicketDetailSerializer
-from forms.mixins import SerializerClassByAction
+from forms.mixins import SerializerClassByActionMixin
 
 
-class TicketViewSet(viewsets.ModelViewSet, SerializerClassByAction):
+class TicketViewSet(viewsets.ModelViewSet, SerializerClassByActionMixin):
     serializer_class = TicketSerializer
     queryset = Ticket.objects.all()
     permission_classes = [IsAuthenticated]
