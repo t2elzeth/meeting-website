@@ -1,23 +1,23 @@
 <template>
-  <Test></Test>
+  <TheSidenav></TheSidenav>
   <main class="main">
-    <Nav></Nav>
+    <TheNav></TheNav>
     <router-view v-slot="{Component}">
       <component :is="Component"></component>
     </router-view>
   </main>
-  <Footer class="footer"/>
+  <TheFooter class="footer"/>
 </template>
 
 <script>
-import Test from "@/components/layout/Sidenav";
-import Nav from "@/components/layout/Nav";
-import Footer from "@/components/layout/Footer";
+import TheSidenav from "@/components/layout/TheSidenav";
+import TheNav from "@/components/layout/TheNav";
+import TheFooter from "@/components/layout/TheFooter";
 
 export default {
   name: "DefaultLayout",
   components: {
-    Footer, Nav, Test
+    TheFooter, TheNav, TheSidenav
   }
 };
 </script>

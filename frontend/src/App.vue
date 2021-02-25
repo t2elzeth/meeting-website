@@ -10,17 +10,10 @@
 </template>
 
 <script>
-import Nav from './components/layout/Nav'
-import Footer from './components/layout/Footer'
-
 const defaultLayout = "default-layout";
 
 export default {
   name: 'App',
-  components: {
-    Nav,
-    Footer
-  },
   data() {
     return {
       layout: this.$route.meta.layout || defaultLayout
