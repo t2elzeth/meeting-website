@@ -14,8 +14,6 @@
 <script>
 import QuestionnaireDropdown from "@/components/QuestionnaireDropdown";
 
-const api = require("@/utils/api")
-
 export default {
   name: "Test",
   components: {QuestionnaireDropdown},
@@ -33,7 +31,7 @@ export default {
     }
   },
   async mounted() {
-    this.questionnaires = await api.questionnaires("all")
+    this.questionnaires = await this.$api.questionnaires("all")
     this.loading = false
   }
 }

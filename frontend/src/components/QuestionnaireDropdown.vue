@@ -20,8 +20,6 @@
 </template>
 
 <script>
-const api = require("@/utils/api")
-
 export default {
   name: "Dropdown",
   props: {
@@ -46,7 +44,7 @@ export default {
     }
   },
   async created() {
-    this.questions = await api.questions(this.questionnaire.id)
+    this.questions = await this.$api.questions(this.questionnaire.id)
   },
 }
 </script>

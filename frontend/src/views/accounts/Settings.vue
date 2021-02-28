@@ -28,8 +28,6 @@
 <script>
 import Select from "@/components/fields/Select";
 
-const api = require("@/utils/api")
-
 export default {
   components: {
     Select
@@ -47,7 +45,7 @@ export default {
   },
   methods: {
     async submitForm() {
-      await api.editAccount(this.getFormData())
+      await this.$api.editAccount(this.getFormData())
       this.$store.dispatch("setMeState")
     },
     getFormData() {

@@ -44,8 +44,6 @@
 <script>
 import {success} from "@/utils/notifications";
 
-const api = require("@/utils/api")
-
 export default {
   name: "QuestionnaireQuestionsModal",
   props: {
@@ -61,7 +59,7 @@ export default {
   },
   methods: {
     async answerToQuestionnaire() {
-      await api.answerToQuestionnaire(Object.values(this.answers), this.serverData.id)
+      await this.$api.answerToQuestionnaire(Object.values(this.answers), this.serverData.id)
       success("Вы успешно ответили на эту анкету").then(() => this.$router.push({name: 'myanswer'}))
     },
     updateAnswers(answer) {

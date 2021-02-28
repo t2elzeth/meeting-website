@@ -39,8 +39,6 @@
 <script>
 import LoadingContent from "@/components/exceptions/LoadingContent";
 
-const api = require("@/utils/api")
-
 export default {
   components: {
     LoadingContent
@@ -55,12 +53,12 @@ export default {
   },
   methods: {
     async sendQuestionnaire() {
-      await api.sendQuestionnaire(this.userData.id, this.questionnaireIdToSend)
+      await this.$api.sendQuestionnaire(this.userData.id, this.questionnaireIdToSend)
     }
   },
   async created() {
-    this.userData = await api.userDetail(this.$route.params.id)
-    this.questionnaires = await api.myQuestionnaires()
+    this.userData = await this.$api.userDetail(this.$route.params.id)
+    this.questionnaires = await this.$api.questionnaires("my")
     this.loading = false
   }
 }

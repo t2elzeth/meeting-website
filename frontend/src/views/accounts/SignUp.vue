@@ -30,8 +30,6 @@
 <script>
 import Select from "@/components/fields/Select";
 
-const api = require("@/utils/api")
-
 export default {
   components: {
     Select
@@ -54,7 +52,7 @@ export default {
   },
   methods: {
     async submitForm() {
-      await api.signUp(this.formData)
+      await this.$api.signUp(this.formData)
     }
   }
 }

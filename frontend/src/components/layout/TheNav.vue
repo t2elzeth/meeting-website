@@ -27,8 +27,6 @@
 </template>
 
 <script>
-const api = require("@/utils/api")
-
 export default {
   data() {
     return {
@@ -45,10 +43,10 @@ export default {
     async toggleNavbar() {
       this.isOpen = !this.isOpen
 
-      this.numberOfItems.myQuestionnaires = (await api.questionnaires("my")).length
-      this.numberOfItems.receivedQuestionnaires = (await api.receivedQuestionnaires()).length
-      this.numberOfItems.answersToMyQuestionnaires = (await api.answers("to-me")).length
-      this.numberOfItems.myAnswers = (await api.answers("my")).length
+      this.numberOfItems.myQuestionnaires = (await this.$api.questionnaires("my")).length
+      this.numberOfItems.receivedQuestionnaires = (await this.$api.receivedQuestionnaires()).length
+      this.numberOfItems.answersToMyQuestionnaires = (await this.$api.answers("to-me")).length
+      this.numberOfItems.myAnswers = (await this.$api.answers("my")).length
     }
   },
 }

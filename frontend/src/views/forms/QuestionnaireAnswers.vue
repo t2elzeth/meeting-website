@@ -18,8 +18,6 @@
 </template>
 
 <script>
-const api = require("@/utils/api")
-
 export default {
   data() {
     return {
@@ -28,7 +26,7 @@ export default {
     }
   },
   async created() {
-    this.serverData = await api.answers(this.$route.meta.mode)
+    this.serverData = await this.$api.answers(this.$route.meta.mode)
     this.loading = false
   }
 }

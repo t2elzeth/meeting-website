@@ -26,8 +26,6 @@ import LoadingContent from "@/components/exceptions/LoadingContent";
 import QuestionnaireQuestionsModal from "@/components/QuestionnaireQuestionsModal";
 
 
-const api = require("@/utils/api")
-
 export default {
   components: {
     LoadingContent, QuestionnaireQuestionsModal
@@ -43,11 +41,11 @@ export default {
   },
   methods: {
     async searchQuestionnaires() {
-      this.questionnairesList = await api.questionnaires(this.$route.meta.mode, this.searchFormData)
+      this.questionnairesList = await this.$api.questionnaires(this.$route.meta.mode, this.searchFormData)
     }
   },
   async created() {
-    this.questionnairesList = await api.questionnaires(this.$route.meta.mode)
+    this.questionnairesList = await this.$api.questionnaires(this.$route.meta.mode)
     this.loading = false
   }
 }

@@ -13,8 +13,6 @@
 </template>
 
 <script>
-const api = require("@/utils/api")
-
 import {success, error} from "@/utils/notifications";
 
 export default {
@@ -26,7 +24,7 @@ export default {
   },
   methods: {
     async login() {
-      api.login({email: this.email, password: this.password})
+      this.$api.login({email: this.email, password: this.password})
          .then(() => {
            this.$store.dispatch("setMeState")
 

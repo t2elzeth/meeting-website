@@ -18,7 +18,6 @@
 </template>
 
 <script>
-const api = require("@/utils/api")
 import {success} from "@/utils/notifications";
 
 export default {
@@ -36,7 +35,7 @@ export default {
       this.questions[field.target.id] = field.target.value
     },
     async submitForm() {
-      await api.newQuestionnaire({
+      await this.$api.newQuestionnaire({
         questions: Object.values(this.questions),
         title: this.questionnaireTitle
       })
