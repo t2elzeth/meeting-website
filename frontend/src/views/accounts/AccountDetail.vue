@@ -37,12 +37,7 @@
 </template>
 
 <script>
-import LoadingContent from "@/components/exceptions/LoadingContent";
-
 export default {
-  components: {
-    LoadingContent
-  },
   data() {
     return {
       userData: {},

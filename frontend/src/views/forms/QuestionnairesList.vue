@@ -17,18 +17,16 @@
         </QuestionnaireQuestionsModal>
       </template>
     </div>
-    <LoadingContent v-else></LoadingContent>
+    <loading-content v-else></loading-content>
   </section>
 </template>
 
 <script>
-import LoadingContent from "@/components/exceptions/LoadingContent";
 import QuestionnaireQuestionsModal from "@/components/QuestionnaireQuestionsModal";
-
 
 export default {
   components: {
-    LoadingContent, QuestionnaireQuestionsModal
+    QuestionnaireQuestionsModal
   },
   data() {
     return {
