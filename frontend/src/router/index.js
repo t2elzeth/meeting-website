@@ -17,6 +17,7 @@ const routes = [
     component: () => import("@/views/404")
   }
 ]
+
 const router = createRouter({
   history: createWebHistory(),
   routes
