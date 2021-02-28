@@ -18,7 +18,7 @@
     <template v-else>
       <button @click="$router.push({ name: 'signup' })" class="footer-btn">Зарегистрироваться</button>
       <button @click="$router.push({ name: 'login' })" class="footer-btn">Войти</button>
-      <Error error-message="Ошибка! Пожалуйста войдите в свой аккаунт или зарегистрируйтесь."></Error>
+      <Error>Ошибка! Пожалуйста войдите в свой аккаунт или зарегистрируйтесь.</Error>
     </template>
   </footer>
 </template>

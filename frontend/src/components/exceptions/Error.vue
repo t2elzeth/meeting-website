@@ -1,19 +1,16 @@
 <template>
   <div class="error">
     <div class="error-content">
-      <p class="error-title">{{ errorMessage }}</p>
+      <p class="error-title">
+        <slot></slot>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    errorMessage: {
-      type: String,
-      default: "Ошибка!"
-    }
-  },
+  name: "Error"
 }
 </script>
 
