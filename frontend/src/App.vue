@@ -1,10 +1,7 @@
 <template>
   <div id="app">
     <component :is="layout">
-      <router-view>
-        <transition name="content" appear>
-        </transition>
-      </router-view>
+      <slot />
     </component>
   </div>
 </template>

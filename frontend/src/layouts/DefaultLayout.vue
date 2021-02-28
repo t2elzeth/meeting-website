@@ -2,9 +2,7 @@
   <TheSidenav></TheSidenav>
   <main class="main">
     <TheNav></TheNav>
-    <router-view v-slot="{Component}">
-      <component :is="Component"></component>
-    </router-view>
+    <router-view></router-view>
   </main>
   <TheFooter class="footer"/>
 </template>
@@ -18,7 +16,7 @@ export default {
   name: "DefaultLayout",
   components: {
     TheFooter, TheNav, TheSidenav
-  }
+  },
 };
 </script>
 
