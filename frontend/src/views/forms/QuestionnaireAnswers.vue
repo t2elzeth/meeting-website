@@ -13,7 +13,7 @@
         </template>
       </div>
     </div>
-    <div v-else>Content is loading</div>
+    <loading-content v-else></loading-content>
   </div>
 </template>
 
