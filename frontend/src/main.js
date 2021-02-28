@@ -9,5 +9,5 @@ app.use(store)
 app.use(router)
 
 app.component("default-layout", DefaultLayout);
-app.config.globalProperties.$api = require("@/utils/api")
+app.config.globalProperties.$api = require("@/utils/api/index").default
 app.mount('#app')

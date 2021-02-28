@@ -1,6 +1,6 @@
 import {createStore} from 'vuex'
 
-const api = require("@/utils/api")
+const api = require("@/utils/api/index").default
 
 export default createStore({
   state: {
