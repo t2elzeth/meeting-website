@@ -42,8 +42,6 @@
 </template>
 
 <script>
-import {success} from "@/utils/notifications";
-
 export default {
   name: "QuestionnaireQuestionsModal",
   props: {
@@ -60,7 +58,7 @@ export default {
   methods: {
     async answerToQuestionnaire() {
       await this.$api.answerToQuestionnaire(Object.values(this.answers), this.serverData.id)
-      success("Вы успешно ответили на эту анкету").then(() => this.$router.push({name: 'myanswer'}))
+      this.$notify.success("Вы успешно ответили на эту анкету").then(() => this.$router.push({name: 'myanswer'}))
     },
     updateAnswers(answer) {
       console.log(answer.target.value, answer.target.id)

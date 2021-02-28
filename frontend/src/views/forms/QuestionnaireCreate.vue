@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import {success} from "@/utils/notifications";
-
 export default {
   data() {
     return {
@@ -39,7 +37,7 @@ export default {
         questions: Object.values(this.questions),
         title: this.questionnaireTitle
       })
-      success("Your questionnaire has been successfully created!").then(() => this.$router.push({name: "myques"}))
+      this.$notify.success("Your questionnaire has been successfully created!").then(() => this.$router.push({name: "myques"}))
     },
   }
 }

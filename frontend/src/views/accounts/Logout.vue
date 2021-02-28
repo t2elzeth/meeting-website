@@ -5,15 +5,13 @@
 </template>
 
 <script>
-import {success} from "@/utils/notifications";
-
 export default {
   name: "Logout",
   async mounted() {
     await this.$api.logout()
     this.$store.dispatch("deleteMeState")
 
-    success("Вы успешно вышли из аккаунта!").then(() => this.$router.push({name: "login"}))
+    this.$notify.success("Вы успешно вышли из аккаунта!").then(() => this.$router.push({name: "login"}))
   }
 }
 </script>
