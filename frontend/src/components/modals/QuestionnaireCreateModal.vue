@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="isOpen = true" class="open-btn">Создать вопросник [+++]</button>
+    <button @click="isOpen = true" class="open-btn">Создать вопросник [+]</button>
 
     <transition name="modal" v-if="isOpen">
       <div class="modal-mask">
