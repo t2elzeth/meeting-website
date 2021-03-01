@@ -23,10 +23,10 @@ export default {
   methods: {
     async login() {
       this.$api.login({email: this.email, password: this.password})
-         .then(() => {
-           this.$store.dispatch("setMeState")
-           this.$notify.success("Успешная авторизация!").then(() => this.$router.push({name: 'allques'}))
-         }).catch((err) => {
+          .then(() => {
+            this.$store.dispatch("setMeState")
+            this.$notify.success("Успешная авторизация!").then(() => this.$router.push({name: 'allques'}))
+          }).catch((err) => {
         this.$notify.error("Что-то пошло не так. Попробуйте позже, или обратитесь в тех-поддержку")
         console.log(err)
       })
