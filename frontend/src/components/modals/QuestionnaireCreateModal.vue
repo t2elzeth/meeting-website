@@ -7,7 +7,10 @@
         <div class="modal-wrapper">
           <div class="modal-container">
             <button class="closebtn" @click="isOpen = false"></button>
-            <div class="modal-header">Создать вопрос</div>
+            <div class="modal-header">
+              Создать вопрос
+              <button @click="rows.push({maxlength: 60})" type="button">Добавить вопрос</button>
+            </div>
 
             <div class="modal-body">
               <div class="add">
@@ -21,7 +24,6 @@
                            type="text" @change="updateQuestions">
 
                     <button class="form-btn">Создать</button>
-                    <button @click="rows.push({maxlength: 60})" type="button">Добавить вопрос</button>
                   </form>
                 </div>
               </div>
