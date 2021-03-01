@@ -6,7 +6,7 @@
           <div class="footer-settings-info">
             <span class="footer-settings-text">{{ serverData.full_name }}</span>
             <button @click="$router.push({ name: 'settings' })" class="footer-settings-btn">Настройки</button>
-            <button @click="$router.push({ name: 'addques' })" class="add-button">Создать вопросник [+]</button>
+            <QuestionnaireCreateModal></QuestionnaireCreateModal>
           </div>
         </div>
         <div class="footer-nav">
@@ -25,11 +25,12 @@
 
 <script>
 import Error from "@/components/exceptions/Error";
+import QuestionnaireCreateModal from "@/components/modals/QuestionnaireCreateModal";
 import auth from "@/utils/auth";
 
 export default {
   components: {
-    Error
+    Error, QuestionnaireCreateModal
   },
   data() {
     return {

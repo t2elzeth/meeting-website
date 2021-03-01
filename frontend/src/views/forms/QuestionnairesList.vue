@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import QuestionnaireQuestionsModal from "@/components/QuestionnaireQuestionsModal";
+import QuestionnaireQuestionsModal from "@/components/modals/QuestionnaireQuestionsModal";
 
 export default {
   components: {

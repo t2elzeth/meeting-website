@@ -33,12 +33,7 @@ export default [
           mode: "to-me"
         },
         component: Questionnaires
-      },
-      {
-        path: 'new', //Создать вопрос
-        name: 'addques',
-        component: () => import("@/views/forms/QuestionnaireCreate")
-      },
+      }
     ]
   },
 ]
