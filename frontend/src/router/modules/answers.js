@@ -10,15 +10,15 @@ export default [
     children: [
       {
         path: 'my', // Мои ответы
-        name: 'myanswer',
+        name: 'answers-my',
         meta: {
           mode: "my"
         },
         component: () => import("@/views/forms/QuestionnaireAnswers")
       },
       {
-        path: 'tome', //Вам ответили
-        name: 'askyou',
+        path: 'to-me', //Вам ответили
+        name: 'answers-to-me',
         meta: {
           mode: "to-me"
         },

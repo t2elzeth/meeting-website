@@ -28,25 +28,8 @@ export default {
   name: "QuestionnaireCreateModal",
   data() {
     return {
-      rows: [{maxlength: 60}],
-      questionnaireTitle: "",
-      questions: {},
-      defaultInputFieldPlaceholder: "Текст вашего вопроса",
       isOpen: false
     }
-  },
-  methods: {
-    updateQuestions(field) {
-      console.log(field.target.value, field.target.id)
-      this.questions[field.target.id] = field.target.value
-    },
-    async submitForm() {
-      await this.$api.newQuestionnaire({
-        questions: Object.values(this.questions),
-        title: this.questionnaireTitle
-      })
-      this.$notify.success("Your questionnaire has been successfully created!").then(() => this.$router.push({name: "myques"}))
-    },
   }
 }
 </script>

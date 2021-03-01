@@ -50,7 +50,7 @@ export default {
   methods: {
     async answerToQuestionnaire() {
       await this.$api.answerToQuestionnaire(Object.values(this.answers), this.serverData.id)
-      this.$notify.success("Вы успешно ответили на эту анкету").then(() => this.$router.push({name: 'myanswer'}))
+      this.$notify.success("Вы успешно ответили на эту анкету").then(() => this.$router.push({name: 'answers-my'}))
     },
     updateAnswers(answer) {
       console.log(answer.target.value, answer.target.id)

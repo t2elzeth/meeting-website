@@ -11,7 +11,7 @@ export default [
     children: [
       {
         path: '',
-        name: 'allques',
+        name: 'questionnaires-all',
         meta: {
           mode: "all",
           search: true
@@ -20,15 +20,15 @@ export default [
       },
       {
         path: 'my',
-        name: 'myques',
+        name: 'questionnaires-my',
         meta: {
           mode: "my"
         },
         component: Questionnaires
       },
       {
-        path: 'tome', //Вам задали
-        name: 'ansyou',
+        path: 'to-me', //Вам задали
+        name: 'questionnaires-to-me',
         meta: {
           mode: "to-me"
         },

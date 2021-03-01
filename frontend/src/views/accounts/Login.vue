@@ -25,7 +25,7 @@ export default {
       this.$api.login({email: this.email, password: this.password})
           .then(() => {
             this.$store.dispatch("setMeState")
-            this.$notify.success("Успешная авторизация!").then(() => this.$router.push({name: 'allques'}))
+            this.$notify.success("Успешная авторизация!").then(() => this.$router.push({name: 'questionnaires-all'}))
           }).catch((err) => {
         this.$notify.error("Что-то пошло не так. Попробуйте позже, или обратитесь в тех-поддержку")
         console.log(err)
