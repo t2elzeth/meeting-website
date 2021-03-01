@@ -1,56 +1,48 @@
 <template>
-  <div>
-    <button @click="isOpen = true" class="open-btn">Открыть</button>
+  <BaseModal>
+    <template #buttonContent>Открыть</template>
+    <template #modalHeader>
+      Название:
+      <slot name="header"></slot>
+    </template>
+    <template #modalBody>
+      <template v-if="questions.length > 0">
 
-    <transition name="modal" v-if="isOpen">
-      <div class="modal-mask">
-        <div class="modal-wrapper">
-          <div class="modal-container">
-            <button class="closebtn" @click="isOpen = false"></button>
-            <div class="modal-header">
-              Название:
-              <slot></slot>
-            </div>
+        <button @click="isAnswering = !isAnswering">
+          <span v-if="isAnswering">Отменить</span>
+          <span v-else>Я хочу ответить</span>
+        </button>
+        <form action="" class="form" @submit.prevent="answerToQuestionnaire">
+          <label v-for="question in questions" v-bind:key="question.question">
+            Вопрос: {{ question.question }}
+            <template v-if="isAnswering">
+              <input type="text" :id="question.question" @change="updateAnswers" required>
+            </template>
+          </label>
+          <button class="btn" v-if="isAnswering">Отправить ответы</button>
+        </form>
 
-            <div class="modal-body">
-              <template v-if="questions.length > 0">
-
-                <button @click="isAnswering = !isAnswering">
-                  <span v-if="isAnswering">Отменить</span>
-                  <span v-else>Я хочу ответить</span>
-                </button>
-                <form action="" class="form" @submit.prevent="answerToQuestionnaire">
-                  <label v-for="question in questions" v-bind:key="question.question">
-                    Вопрос: {{ question.question }}
-                    <template v-if="isAnswering">
-                      <input type="text" :id="question.question" @change="updateAnswers" required>
-                    </template>
-                  </label>
-                  <button class="btn" v-if="isAnswering">Отправить ответы</button>
-                </form>
-
-              </template>
-              <template v-else>
-                <p>Nothing to show here</p>
-              </template>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
-  </div>
+      </template>
+      <template v-else>
+        <p>Nothing to show here</p>
+      </template>
+    </template>
+  </BaseModal>
 </template>
 
 <script>
+import BaseModal from "@/components/modals/BaseModal";
+
 export default {
   name: "QuestionnaireQuestionsModal",
+  components: {
+    BaseModal
+  },
   props: {
-    title: String,
     questions: Array
   },
   data() {
     return {
-      isOpen: false,
       answers: {},
       isAnswering: false,
     }

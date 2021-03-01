@@ -13,7 +13,7 @@
           <strong>{{ questionnaire.owner.full_name }}</strong>
         </p>
         <QuestionnaireQuestionsModal :questions="questionnaire.questions">
-          {{ questionnaire.title }}
+          <template #header>{{ questionnaire.title }}</template>
         </QuestionnaireQuestionsModal>
       </template>
     </div>
