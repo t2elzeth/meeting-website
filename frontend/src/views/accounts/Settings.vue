@@ -40,23 +40,24 @@ export default {
         full_name: "",
         about: "",
         age: "",
-      },
+      }
     }
   },
   methods: {
     async submitForm() {
-      await this.$api.editAccount(this.getFormData())
-      this.$store.dispatch("setMeState")
-    },
-    getFormData() {
-      let data = {}
-
-      Object.keys(this.formData).forEach(key => {
-        if (this.formData[key]) data[key] = this.formData[key]
-      })
-      return data
-    },
+      await this.$api.editAccount(getFormData(this.formData))
+      await this.$store.dispatch("setMeState")
+    }
   }
+}
+
+function getFormData(formData) {
+  let data = {}
+
+  Object.keys(formData).forEach(key => {
+    if (formData[key]) data[key] = formData[key]
+  })
+  return data
 }
 </script>
 

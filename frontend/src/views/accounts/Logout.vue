@@ -9,9 +9,9 @@ export default {
   name: "Logout",
   async mounted() {
     await this.$api.logout()
-    this.$store.dispatch("deleteMeState")
-
-    this.$notify.success("Вы успешно вышли из аккаунта!").then(() => this.$router.push({name: "login"}))
+    await this.$store.dispatch("deleteMeState")
+    await this.$notify.success("Вы успешно вышли из аккаунта!")
+    await this.$router.push({name: "login"})
   }
 }
 </script>
