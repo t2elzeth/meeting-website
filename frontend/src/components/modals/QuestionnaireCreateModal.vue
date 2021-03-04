@@ -5,7 +5,7 @@
     </template>
     <template #modalHeader>
       Создать вопрос
-      <button @click="rows.push({maxlength: 60})" type="button">Добавить вопрос</button>
+      <button @click="addNewQuestion" type="button">Добавить вопрос</button>
     </template>
     <template #modalBody>
       <div class="add">
@@ -36,7 +36,7 @@ export default {
   },
   data() {
     return {
-      rows: [{maxlength: 60}],
+      rows: [],
       questionnaireTitle: "",
       questions: {},
       defaultInputFieldPlaceholder: "Текст вашего вопроса",
@@ -48,15 +48,21 @@ export default {
       this.questions[field.target.id] = field.target.value
     },
     async submitForm() {
-      await this.$api.newQuestionnaire({
+      const formData = {
         questions: Object.values(this.questions),
         title: this.questionnaireTitle
-      })
-      this.$notify.success("Your questionnaire has been successfully created!").then(() => this.$router.push({
-        name: "questionnaires",
-        params: {mode: 'all'}
-      }))
+      }
+
+      await this.$api.newQuestionnaire(formData)
+      await this.$notify.success("Your questionnaire has been successfully created!")
+      await this.$router.push({name: "questionnaires", params: {mode: 'all'}})
     },
+    addNewQuestion() {
+      this.rows.push({maxlength: 60})
+    }
+  },
+  mounted() {
+    this.addNewQuestion()
   }
 }
 </script>
