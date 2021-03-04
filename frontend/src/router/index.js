@@ -7,9 +7,8 @@ const routes = [
     name: 'main',
     component: () => import("@/views/Home")
   },
-  ...require("./modules/users").default,
-  ...require("./modules/questionnaires").default,
-  ...require("./modules/answers").default,
+  ...require("./modules/accounts").default,
+  ...require("./modules/forms").default,
   ...require("./modules/support").default,
   {
     path: '/:pathMatch(.*)*',
