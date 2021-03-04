@@ -43,7 +43,7 @@ export default {
     }
   },
   async created() {
-    this.questionnairesList = await this.$api.questionnaires(this.$route.meta.mode)
+    this.questionnairesList = await this.$api.questionnaires(this.$route.params.mode)
     this.loading = false
   }
 }

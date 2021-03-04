@@ -6,17 +6,19 @@
 
       <transition name="fade" appear>
         <div class="nav__sub-menu" v-if="isOpen">
-          <button @click="$router.push({ name: 'questionnaires-all' })" class="nav-subbtn nav-btn">Все вопросы</button>
+          <button @click="$router.push({ name: 'questionnaires', params: {mode: 'all'} })" class="nav-subbtn nav-btn">
+            Все вопросы
+          </button>
           <button @click="$router.push({ name: 'answers-my' })" class="nav-subbtn nav-btn">
             Мои ответы: ({{ numberOfItems.myAnswers }})
           </button>
-          <button @click="$router.push({ name: 'questionnaires-my' })" class="nav-subbtn nav-btn">
+          <button @click="$router.push({ name: 'questionnaires', params: {mode: 'my'} })" class="nav-subbtn nav-btn">
             Мои вопросы: ({{ numberOfItems.myQuestionnaires }})
           </button>
           <button @click="$router.push({ name: 'answers-to-me' })" class="nav-subbtn nav-btn">
             Вам ответили: ({{ numberOfItems.answersToMyQuestionnaires }})
           </button>
-          <button @click="$router.push({ name: 'questionnaires-to-me' })" class="nav-subbtn nav-btn">
+          <button @click="$router.push({ name: 'questionnaires', params: {mode: 'to-me'} })" class="nav-subbtn nav-btn">
             Вам задали вопрос: ({{ numberOfItems.receivedQuestionnaires }})
           </button>
           <button @click="$router.push({ name: 'support' })" class="nav-subbtn nav-btn">Тех. поддержка</button>

@@ -52,7 +52,10 @@ export default {
         questions: Object.values(this.questions),
         title: this.questionnaireTitle
       })
-      this.$notify.success("Your questionnaire has been successfully created!").then(() => this.$router.push({name: "questionnaires-my"}))
+      this.$notify.success("Your questionnaire has been successfully created!").then(() => this.$router.push({
+        name: "questionnaires",
+        params: {mode: 'all'}
+      }))
     },
   }
 }
