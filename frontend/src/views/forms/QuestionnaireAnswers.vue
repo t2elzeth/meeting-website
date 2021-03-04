@@ -20,8 +20,8 @@ export default {
       loading: true,
     }
   },
-  async created() {
-    this.serverData = await this.$api.answers(this.$route.meta.mode)
+  async mounted() {
+    this.serverData = await this.$api.answers(this.$route.params.mode)
     this.loading = false
   }
 }

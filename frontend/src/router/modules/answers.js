@@ -1,29 +1,12 @@
-import SimpleRouterView from "@/components/SimpleRouterView";
+import QuestionnaireAnswers from "@/views/forms/QuestionnaireAnswers";
 
 export default [
   {
-    path: '/answers',
+    path: '/answers/:mode',
+    name: 'answers',
     meta: {
       requiresAuth: true
     },
-    component: SimpleRouterView,
-    children: [
-      {
-        path: 'my', // Мои ответы
-        name: 'answers-my',
-        meta: {
-          mode: "my"
-        },
-        component: () => import("@/views/forms/QuestionnaireAnswers")
-      },
-      {
-        path: 'to-me', //Вам ответили
-        name: 'answers-to-me',
-        meta: {
-          mode: "to-me"
-        },
-        component: () => import("@/views/forms/QuestionnaireAnswers")
-      },
-    ]
-  },
+    component: QuestionnaireAnswers,
+  }
 ]

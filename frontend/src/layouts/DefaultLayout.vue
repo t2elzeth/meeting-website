@@ -2,7 +2,7 @@
   <TheSidenav></TheSidenav>
   <main class="main">
     <TheNav></TheNav>
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
   </main>
   <TheFooter class="footer"/>
 </template>
