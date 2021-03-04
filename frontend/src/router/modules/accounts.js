@@ -2,7 +2,7 @@ import SimpleRouterView from "@/components/SimpleRouterView";
 
 export default [
   {
-    path: '/accounts/',
+    path: '/accounts',
     component: SimpleRouterView,
     children: [
       {
