@@ -19,10 +19,10 @@ const urls = {
 export async function questionnaires(mode, params = {}) {
   if (!store.getters.isAuthenticated) return []
 
-  if (mode === "to-me") {
-    return (await axios.get(urls.questionnairesReceived, store.getters.credentials)).data
-  } else if (mode === "all") {
+  if (mode === "all") {
     return (await axios.get(urls.questionnairesAll, {...store.getters.credentials, params: {...params}})).data
+  } else if (mode === "to-me") {
+    return (await axios.get(urls.questionnairesReceived, store.getters.credentials)).data
   } else if (mode === "my") {
     return (await axios.get(urls.questionnairesMy, store.getters.credentials)).data
   }
