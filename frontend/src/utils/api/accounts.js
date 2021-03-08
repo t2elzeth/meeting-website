@@ -10,26 +10,15 @@ const urls = {
   userDetail: userId => getUrl("api/v1/auth/users/", userId.toString()),
 };
 
-export async function login(data) {
-  return (await axios.post(urls.login, data)).data
-}
-
-export async function logout() {
-  await axios.post(urls.logout, {}, store.getters.credentials)
-}
-
-export async function editAccount(data) {
-  return (await axios.patch(urls.whoAmI, data, store.getters.credentials)).data
-}
+export const signUp = async data => (await axios.post(urls.signUp, data)).data
+export const editAccount = async data => (await axios.patch(urls.whoAmI, data, store.getters.credentials)).data
+export const login = async data => (await axios.post(urls.login, data)).data
+export const logout = async () => await axios.post(urls.logout, {}, store.getters.credentials)
 
 export async function whoAmI() {
   if (!store.getters.isAuthenticated) return {}
 
   return (await axios.get(urls.whoAmI, store.getters.credentials)).data
-}
-
-export async function signUp(data) {
-  return (await axios.post(urls.signUp, data)).data
 }
 
 export async function userDetail(id) {

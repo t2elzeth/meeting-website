@@ -28,9 +28,9 @@ export async function questionnaires(mode, params = {}) {
   }
 }
 
-export async function newQuestionnaire(data) {
-  await axios.post(urls.questionnaireCreate, data, store.getters.credentials)
-}
+export const newQuestionnaire = async data => await axios.post(urls.questionnaireCreate, data, store.getters.credentials)
+export const sendQuestionnaire = async (to_user, questionnaireId) =>
+    await axios.post(urls.sendQuestionnaire(questionnaireId), {to_user}, store.getters.credentials)
 
 export async function answers(mode) {
   if (!store.getters.isAuthenticated) return []
@@ -46,10 +46,6 @@ export async function questions(id) {
   if (!store.getters.isAuthenticated) return []
 
   return (await axios.get(urls.questionnaireDetail(id), store.getters.credentials)).data
-}
-
-export async function sendQuestionnaire(to_user, questionnaireId) {
-  await axios.post(urls.sendQuestionnaire(questionnaireId), {to_user}, store.getters.credentials)
 }
 
 export async function answerToQuestionnaire(answers, questionnaireId) {
