@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import auth from "@/utils/auth";
+import store from '@/store/index'
 
 const routes = [
   {
@@ -23,7 +23,7 @@ const router = createRouter({
 })
 
 router.beforeEach(to => {
-  if (to.matched.some(record => record.meta.requiresAuth) && !auth.isAuthenticated()) {
+  if (to.matched.some(record => record.meta.requiresAuth) && !store.getters.isAuthenticated) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     return {name: "login"};

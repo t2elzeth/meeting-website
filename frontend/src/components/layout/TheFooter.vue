@@ -1,10 +1,10 @@
 <template>
   <footer class="footer">
-    <div class="wrapper" v-if="auth.isAuthenticated()">
+    <div class="wrapper" v-if="isAuthenticated">
       <div class="footer-content">
         <div class="footer-settings">
           <div class="footer-settings-info">
-            <span class="footer-settings-text">{{ serverData.full_name }}</span>
+            <span class="footer-settings-text">{{ me.full_name }}</span>
             <button @click="$router.push({ name: 'settings' })" class="footer-settings-btn">Настройки</button>
             <QuestionnaireCreateModal></QuestionnaireCreateModal>
           </div>
@@ -26,18 +26,13 @@
 <script>
 import Error from "@/components/exceptions/Error";
 import QuestionnaireCreateModal from "@/components/modals/QuestionnaireCreateModal";
-import auth from "@/utils/auth";
+import {mapGetters} from 'vuex'
 
 export default {
   components: {
     Error, QuestionnaireCreateModal
   },
-  data() {
-    return {
-      serverData: this.$store.getters.getMe,
-      auth
-    }
-  },
+  computed: mapGetters(['isAuthenticated', 'me'])
 }
 </script>
 

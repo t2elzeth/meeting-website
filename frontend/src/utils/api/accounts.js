@@ -1,6 +1,6 @@
 import {getUrl} from "@/utils/api/utils";
-import auth from "@/utils/auth";
 import axios from "axios";
+import store from '@/store/index'
 
 const urls = {
   signUp: getUrl("api/v1/auth/users/"),
@@ -12,22 +12,22 @@ const urls = {
 
 export async function login(data) {
   const responseData = (await axios.post(urls.login, data)).data
-  auth.setCredentials(responseData)
+  store.commit('setCredentials', responseData)
 }
 
 export async function logout() {
-  await axios.post(urls.logout, {}, auth.getCredentials())
-  auth.removeToken()
+  await axios.post(urls.logout, {}, store.getters.credentials)
+  store.commit('removeCredentials')
 }
 
 export async function editAccount(data) {
-  return (await axios.patch(urls.whoAmI, data, auth.getCredentials())).data
+  return (await axios.patch(urls.whoAmI, data, store.getters.credentials)).data
 }
 
 export async function whoAmI() {
-  if (!auth.isAuthenticated()) return {}
+  if (!store.getters.isAuthenticated) return {}
 
-  return (await axios.get(urls.whoAmI, auth.getCredentials())).data
+  return (await axios.get(urls.whoAmI, store.getters.credentials)).data
 }
 
 export async function signUp(data) {
@@ -35,7 +35,7 @@ export async function signUp(data) {
 }
 
 export async function userDetail(id) {
-  if (!auth.isAuthenticated()) return {}
+  if (!store.getters.isAuthenticated) return {}
 
-  return (await axios.get(urls.userDetail(id), auth.getCredentials())).data
+  return (await axios.get(urls.userDetail(id), store.getters.credentials)).data
 }

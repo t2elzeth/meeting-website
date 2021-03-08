@@ -1,32 +1,10 @@
 import {createStore} from 'vuex'
+import questionnaires from "@/store/modules/questionnaires";
+import auth from "@/store/modules/auth";
 
-const api = require("@/utils/api/index").default
 
 export default createStore({
-  state: {
-    me: JSON.parse(localStorage.getItem("me") || "{}")
+  modules: {
+    auth, questionnaires
   },
-  mutations: {
-    setMeData(state, payload) {
-      localStorage.setItem("me", JSON.stringify(payload))
-    },
-    deleteMeData() {
-      localStorage.setItem("me", JSON.stringify({}))
-    }
-  },
-  actions: {
-    async setMeState(state) {
-      const res = await api.whoAmI()
-      state.commit("setMeData", res)
-    },
-    deleteMeState(state) {
-      state.commit("deleteMeData")
-    }
-  },
-  modules: {},
-  getters: {
-    getMe(state) {
-      return state.me
-    }
-  }
 })
