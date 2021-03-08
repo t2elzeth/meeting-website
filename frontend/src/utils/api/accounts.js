@@ -16,7 +16,6 @@ export async function login(data) {
 
 export async function logout() {
   await axios.post(urls.logout, {}, store.getters.credentials)
-  store.commit('removeCredentials')
 }
 
 export async function editAccount(data) {
