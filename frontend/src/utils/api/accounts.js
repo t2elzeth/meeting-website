@@ -11,8 +11,7 @@ const urls = {
 };
 
 export async function login(data) {
-  const responseData = (await axios.post(urls.login, data)).data
-  store.commit('setCredentials', responseData)
+  return (await axios.post(urls.login, data)).data
 }
 
 export async function logout() {

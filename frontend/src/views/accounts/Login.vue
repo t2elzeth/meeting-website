@@ -24,9 +24,8 @@ export default {
     async login() {
       const formData = {email: this.email, password: this.password}
 
-      this.$api.login(formData)
+      this.$store.dispatch('login', formData)
           .then(async () => {
-            await this.$store.dispatch("setMeState")
             await this.$notify.success("Успешная авторизация!")
             await this.$router.push({name: 'questionnaires', params: {mode: 'all'}})
           })

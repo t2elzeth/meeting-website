@@ -28,9 +28,14 @@ const actions = {
     const res = await api.whoAmI()
     state.commit("setMeData", res)
   },
-
   deleteMeState(state) {
     state.commit("deleteMeData")
+  },
+
+  async login(state, formData) {
+    const res = await api.login(formData)
+    state.commit('setCredentials', res)
+    await state.dispatch('setMeState')
   }
 }
 
