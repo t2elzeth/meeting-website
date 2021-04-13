@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  web:
+    build: .
+    volumes:
+      - ./:/app
+    environment:
+      DJANGO_ADMIN_USERNAME: t2elzeth@gmail.com
+      DJANGO_ADMIN_PASSWORD: admin12345
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "8001:80"
+    volumes:
+      - ./staticfiles:/app/static
+    depends_on:
+      - web

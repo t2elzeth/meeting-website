@@ -26,6 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["id"]
         extra_kwargs = {'password': {'write_only': True}}
+        ref_name = "user_serializer"
 
     def validate(self, data: dict):
         """Custom data validation"""
