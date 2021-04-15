@@ -4,7 +4,6 @@ const tokenKey = "token";
 
 const state = {
   me: JSON.parse(localStorage.getItem("me") || "{}"),
-  testState: "FUCK YOU BITHC"
 }
 
 const mutations = {

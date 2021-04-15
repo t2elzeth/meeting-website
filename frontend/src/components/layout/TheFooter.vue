@@ -26,13 +26,11 @@
 <script>
 import Error from "@/components/exceptions/Error";
 import QuestionnaireCreateModal from "@/components/modals/QuestionnaireCreateModal";
-import {mapGetters} from 'vuex'
 
 export default {
   components: {
     Error, QuestionnaireCreateModal
   },
-  computed: mapGetters(['isAuthenticated', 'me'])
 }
 </script>
 
