@@ -12,7 +12,7 @@
           от
           <strong>{{ questionnaire.owner.full_name }}</strong>
         </p>
-        <QuestionnaireQuestionsModal :questions="questionnaire.questions">
+        <QuestionnaireQuestionsModal :questions="questionnaire.questions" :questionnaireId="questionnaire.id">
           <template #header>{{ questionnaire.title }}</template>
         </QuestionnaireQuestionsModal>
       </template>

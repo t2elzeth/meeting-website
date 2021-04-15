@@ -39,7 +39,11 @@ export default {
     BaseModal
   },
   props: {
-    questions: Array
+    questions: Array,
+    questionnaireId: {
+      type: Number,
+      required: false
+    }
   },
   data() {
     return {
@@ -49,9 +53,14 @@ export default {
   },
   methods: {
     async answerToQuestionnaire() {
-      await this.$api.answerToQuestionnaire(Object.values(this.answers), this.serverData.id)
-      await this.$notify.success("Вы успешно ответили на эту анкету")
-      await this.$router.push({name: 'answers', params: {mode: 'my'}})
+      this.$api.answerToQuestionnaire(Object.values(this.answers), this.questionnaireId)
+          .then(async () => {
+            await this.$notify.success("Вы успешно ответили на эту анкету")
+            await this.$router.push({name: 'answers', params: {mode: 'my'}})
+          })
+          .catch(async () => {
+            await this.$notify.error("Error. May be you are trying to answer to your own questionnaire")
+          })
     },
     updateAnswers(answer) {
       console.log(answer.target.value, answer.target.id)
