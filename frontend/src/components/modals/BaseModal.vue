@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="isOpen = true" class="open-btn" v-if="['my'].indexOf($route.meta.mode) !== -1">
+    <button @click="isOpen = true" class="open-btn" v-if="['my'].indexOf($route.params.mode) === -1">
       <slot name="buttonContent">Показать</slot>
     </button>
 
