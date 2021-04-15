@@ -4,7 +4,7 @@
     <TheNav></TheNav>
     <router-view :key="$route.fullPath"></router-view>
   </main>
-  <TheFooter class="footer"/>
+  <TheFooter class="footer" :key="$store.getters.isAuthenticated"/>
 </template>
 
 <script>
