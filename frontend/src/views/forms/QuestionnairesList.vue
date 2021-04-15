@@ -10,7 +10,9 @@
         <p class="quest-title">
           <strong>{{ questionnaire.title }}</strong>
           от
-          <strong>{{ questionnaire.owner.full_name }}</strong>
+          <button @click="redirectToAccountDetail(questionnaire.owner.id)">
+            {{ questionnaire.owner.full_name }}
+          </button>
         </p>
         <QuestionnaireQuestionsModal :questions="questionnaire.questions" :questionnaireId="questionnaire.id">
           <template #header>{{ questionnaire.title }}</template>
@@ -40,6 +42,13 @@ export default {
   methods: {
     async searchQuestionnaires() {
       this.questionnairesList = await this.$api.questionnaires(this.$route.meta.mode, this.searchFormData)
+    },
+    redirectToAccountDetail(userId) {
+      if (this.$store.getters.me.id !== userId) this.$router.push({
+        name: 'account-detail',
+        params: {id: userId}
+      })
+      else this.$notify.alert("Unable to open", "This is yourself")
     }
   },
   async created() {
