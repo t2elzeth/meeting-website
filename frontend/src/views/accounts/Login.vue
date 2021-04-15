@@ -2,7 +2,6 @@
   <div class="autorize">
     <div class="wrapper">
       <p class="title">Войти в аккаунт</p>
-
       <form class="form" action="" @submit.prevent="login">
         <input class="form-input" type="text" placeholder="Ваша почта" v-model="email" required>
         <input class="form-input" type="password" placeholder="Ваш пароль" v-model="password" required>
@@ -27,7 +26,7 @@ export default {
       this.$store.dispatch('login', formData)
           .then(async () => {
             await this.$notify.success("Успешная авторизация!")
-            this.$router.push({name: 'questionnaires', params: {mode: 'all'}})
+            await this.$router.push({name: 'questionnaires', params: {mode: 'all'}})
           })
           .catch((err) => {
             this.$notify.error("Что-то пошло не так. Попробуйте позже, или обратитесь в тех-поддержку")

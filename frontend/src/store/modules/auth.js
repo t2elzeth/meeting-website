@@ -4,7 +4,7 @@ const tokenKey = "token";
 
 const state = {
   me: JSON.parse(localStorage.getItem("me") || "{}"),
-  token: localStorage.getItem(tokenKey)
+  testState: "FUCK YOU BITHC"
 }
 
 const mutations = {
@@ -14,13 +14,6 @@ const mutations = {
   deleteMeData() {
     localStorage.setItem("me", JSON.stringify({}))
   },
-
-  setCredentials(state, payload) {
-    localStorage.setItem(tokenKey, payload["auth_token"])
-  },
-  removeCredentials() {
-    localStorage.removeItem(tokenKey)
-  }
 }
 
 const actions = {
@@ -29,15 +22,22 @@ const actions = {
     state.commit("setMeData", res)
   },
 
+  async setCredentials(state, payload) {
+    await localStorage.setItem(tokenKey, payload["auth_token"])
+  },
+  async removeCredentials(state) {
+    await localStorage.removeItem(tokenKey)
+    state.commit("deleteMeData")
+  },
+
   async login(state, formData) {
     const res = await api.login(formData)
-    state.commit('setCredentials', res)
+    await state.dispatch('setCredentials', res)
     await state.dispatch('setMeState')
   },
   async logout(state) {
     await api.logout()
-    state.commit('removeCredentials')
-    state.commit("deleteMeData")
+    await state.dispatch('removeCredentials')
   }
 }
 
@@ -45,12 +45,15 @@ const getters = {
   me(state) {
     return state.me
   },
-
-  credentials(state) {
-    return {headers: {Authorization: `Token ${state.token}`}};
+  token() {
+    return localStorage.getItem(tokenKey)
   },
 
-  isAuthenticated: (state) => state.token !== null,
+  credentials(state, getters) {
+    return {headers: {Authorization: `Token ${getters.token}`}};
+  },
+
+  isAuthenticated: (state, getters) => getters.token != null,
 }
 
 
