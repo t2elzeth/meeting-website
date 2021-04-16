@@ -1,13 +1,14 @@
 <template>
   <div id="app">
     <component :is="layout">
-      <slot />
+      <slot/>
     </component>
   </div>
 </template>
 
 <script>
 const defaultLayout = "default-layout";
+import {apiServer} from "@/utils/api/utils";
 
 export default {
   name: 'App',
@@ -15,6 +16,9 @@ export default {
     return {
       layout: this.$route.meta.layout || defaultLayout
     }
+  },
+  created() {
+    console.log(apiServer)
   }
 }
 </script>

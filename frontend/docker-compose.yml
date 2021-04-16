@@ -1,9 +1,14 @@
 version: "3.8"
 
 services:
+  front:
+    build: .
+    volumes:
+      - ./dist:/app/dist
+
   nginx:
     build: ./nginx
     volumes:
-      - ./frontend/dist:/app/http
+      - ./dist:/app/http
     ports:
       - "8920:80"
