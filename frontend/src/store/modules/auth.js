@@ -2,9 +2,7 @@ const api = require("@/utils/api/index").default
 const tokenKey = "token";
 
 
-const state = {
-  me: JSON.parse(localStorage.getItem("me") || "{}"),
-}
+const state = {}
 
 const mutations = {
   setMeData(state, payload) {
@@ -41,18 +39,13 @@ const actions = {
 }
 
 const getters = {
-  me(state) {
-    return state.me
-  },
-  token() {
-    return localStorage.getItem(tokenKey)
-  },
+  me: () => JSON.parse(localStorage.getItem("me") || "{}"),
+  token: () => localStorage.getItem(tokenKey),
+  isAuthenticated: (state, getters) => getters.token != null,
 
   credentials(state, getters) {
     return {headers: {Authorization: `Token ${getters.token}`}};
   },
-
-  isAuthenticated: (state, getters) => getters.token != null,
 }
 
 
