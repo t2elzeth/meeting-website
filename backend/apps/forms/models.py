@@ -27,7 +27,6 @@ class AnswerSheet(models.Model):
 
 class Answer(models.Model):
     answer_sheet = models.ForeignKey(AnswerSheet, on_delete=models.CASCADE, related_name='answers')
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, blank=True, null=True)
     answer = models.TextField()
 
 

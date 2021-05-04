@@ -3,6 +3,13 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 
 from . import models
+from forms.models import ReceivedQuestionnaire
+
+
+class ReceivedQuestionnaireInline(admin.StackedInline):
+    model = ReceivedQuestionnaire
+    extra = 0
+    fk_name = "to_user"
 
 
 class UserAdmin(BaseUserAdmin):
@@ -29,6 +36,8 @@ class UserAdmin(BaseUserAdmin):
             )
         }),
     )
+
+    inlines = [ReceivedQuestionnaireInline]
 
 
 admin.site.register(models.User, UserAdmin)

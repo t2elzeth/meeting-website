@@ -38,10 +38,9 @@ class QuestionnaireViewSet(viewsets.ModelViewSet, SerializerClassByActionMixin):
     def perform_create(self, serializer):
         if self.action == "answer":
             answer_sheet = serializer.save(from_user=self.request.user, to_questionnaire=self.get_object())
-            questions = self.get_object().questions.all()
             answers = serializer.validated_data["answers"]
-            for question, answer in zip(questions, answers):
-                answer_sheet.answers.create(question=question, answer=answer)
+            for answer in answers:
+                answer_sheet.answers.create(answer=answer)
         elif self.action == "create":
             questionnaire = serializer.save(owner=self.request.user)
             for question in serializer.validated_data['questions']:
